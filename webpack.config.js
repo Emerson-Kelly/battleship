@@ -7,6 +7,7 @@ module.exports = {
   entry: {
    index: "./src/index.js",
    ship: "./src/ship.js",
+   gameBoard: "./src/gameBoard.js"
   },
   output: {
     filename: '[name].bundle.js',
