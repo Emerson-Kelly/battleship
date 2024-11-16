@@ -8,7 +8,8 @@ module.exports = {
    index: "./src/index.js",
    ship: "./src/ship.js",
    gameBoard: "./src/gameBoard.js",
-   player: "./src/player.js"
+   player: "./src/player.js",
+   gameController: "./src/gameController"
   },
   output: {
     filename: '[name].bundle.js',

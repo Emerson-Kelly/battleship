@@ -2,9 +2,7 @@ import Ship from "./ship.js";
 
 export default class GameBoard {
   constructor(size = 10) {
-    this.grid = Array(size)
-      .fill(null)
-      .map(() => Array(size).fill(null));
+    this.grid = Array.from({ length: size }, () => Array(size).fill(null));
     this.missedShots = [];
     this.ships = [];
   }
@@ -48,13 +46,20 @@ export default class GameBoard {
 
   receiveAttack(coord) {
     const [x, y] = coord;
-    if (this.grid[x][y]) {
-      this.grid[x][y].hit();
-      return true; // hit
-    } else {
-      this.missedShots.push(coord);
-      return false; // miss
+    const cell = this.grid[x][y];
+
+    if (cell === null) {  // Miss
+        this.grid[x][y] = 'O';  // Mark as miss
+        this.missedShots.push(coord);
+        return false;
+    } else if (cell instanceof Ship) {  // Hit on a ship
+        cell.hit();  // Increment the ship's hit counter
+        this.grid[x][y] = 'X';  // Mark cell as hit
+        //this.grid[x][y] = { ship: cell, hit: true };  // Mark cell as hit
+        return true;
     }
+
+    return false; // Already attacked or invalid cell
   }
 
   allShipsSunk() {
@@ -72,6 +77,10 @@ export default class GameBoard {
     }
 
     return [endX, endY];
+  }
+
+  printBoard() {
+    console.log(this.grid.map(row => row.map(cell => (cell ? "S" : "-")).join(" ")).join("\n"));
   }
 }
 

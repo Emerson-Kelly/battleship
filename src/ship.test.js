@@ -1,4 +1,4 @@
-/*
+
 const Ship = require("./ship.js");
 
 test("Test for initializing a Ship with a specific length", () => {
@@ -25,4 +25,3 @@ test("Test isSunk() to verify it returns true only when hits equals or exceeds l
   ship.hit();
   expect(ship.isSunk()).toBe(true);
 });
-*/

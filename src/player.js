@@ -10,10 +10,14 @@ export default class Player {
   }
 
   attack(opponent, coord) {
+    console.log(`Attacking ${coord}...`);
     const result = opponent.gameBoard.receiveAttack(coord);
 
     if (result === true) {
-      return this.enqueueAdjacentCells(coord); // Add adjacent cells to queue on hit
+        console.log(`Hit at ${coord}! Enqueuing adjacent cells.`);
+        this.enqueueAdjacentCells(coord); // Add adjacent cells to queue on hit
+    } else {
+        console.log(`Miss at ${coord}.`);
     }
 
     // Record attack attempt
@@ -35,7 +39,6 @@ export default class Player {
         this.hitQueue.push(coord);
       }
     });
-    
   }
 
   // Check if a coordinate is within bounds
@@ -53,9 +56,8 @@ export default class Player {
   generateSmartAttack() {
     // If there are cells in the hit queue, prioritize them
     if (this.hitQueue.length > 0) {
-        this.previousAttacks.push(this.hitQueue[0]);
+      this.previousAttacks.push(this.hitQueue[0]);
       return this.hitQueue.shift(); // Get the next adjacent cell to attack
-      
     }
 
     // Fallback to a random attack if no adjacent cells remain
@@ -63,19 +65,22 @@ export default class Player {
   }
 
   generateRandomAttack() {
-      // Prioritize coordinates from hitQueue
-      if (this.hitQueue.length > 0) {
-        this.previousAttacks.push(this.hitQueue[0]);
-        return this.hitQueue.shift();
+    // Prioritize coordinates from hitQueue
+    if (this.hitQueue.length > 0) {
+      this.previousAttacks.push(this.hitQueue[0]);
+      return this.hitQueue.shift();
     }
 
     // Otherwise, generate random unique coordinates
     let coord;
     do {
-        coord = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
-    } while (this.previousAttacks.some(attackedCoord => 
-        attackedCoord[0] === coord[0] && attackedCoord[1] === coord[1]
-    ));
+      coord = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+    } while (
+      this.previousAttacks.some(
+        (attackedCoord) =>
+          attackedCoord[0] === coord[0] && attackedCoord[1] === coord[1]
+      )
+    );
 
     this.previousAttacks.push(coord);
     return coord;

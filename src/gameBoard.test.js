@@ -1,4 +1,4 @@
-/*
+
 const GameBoard = require('./gameBoard.js');
 const Ship = require('./ship.js');
 
@@ -71,4 +71,4 @@ test("allShipsSunk returns true only when all ships are sunk", () => {
 
     expect(gameBoard.allShipsSunk()).toBe(true);
 });
-   */
+   
