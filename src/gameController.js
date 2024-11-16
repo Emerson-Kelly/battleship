@@ -92,4 +92,4 @@ export default class GameBoardController {
   }
 }
 
-module.exports = GameBoardController;
+

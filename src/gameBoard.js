@@ -48,15 +48,17 @@ export default class GameBoard {
     const [x, y] = coord;
     const cell = this.grid[x][y];
 
-    if (cell === null) {  // Miss
-        this.grid[x][y] = 'O';  // Mark as miss
-        this.missedShots.push(coord);
-        return false;
-    } else if (cell instanceof Ship) {  // Hit on a ship
-        cell.hit();  // Increment the ship's hit counter
-        this.grid[x][y] = 'X';  // Mark cell as hit
-        //this.grid[x][y] = { ship: cell, hit: true };  // Mark cell as hit
-        return true;
+    if (cell === null) {
+      // Miss
+      this.grid[x][y] = "O"; // Mark as miss
+      this.missedShots.push(coord);
+      return false;
+    } else if (cell instanceof Ship) {
+      // Hit on a ship
+      cell.hit(); // Increment the ship's hit counter
+      this.grid[x][y] = "X"; // Mark cell as hit
+      //this.grid[x][y] = { ship: cell, hit: true };  // Mark cell as hit
+      return true;
     }
 
     return false; // Already attacked or invalid cell
@@ -80,8 +82,12 @@ export default class GameBoard {
   }
 
   printBoard() {
-    console.log(this.grid.map(row => row.map(cell => (cell ? "S" : "-")).join(" ")).join("\n"));
+    console.log(
+      this.grid
+        .map((row) => row.map((cell) => (cell ? "S" : "-")).join(" "))
+        .join("\n")
+    );
   }
 }
 
-module.exports = GameBoard;
+

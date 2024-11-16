@@ -14,10 +14,10 @@ export default class Player {
     const result = opponent.gameBoard.receiveAttack(coord);
 
     if (result === true) {
-        console.log(`Hit at ${coord}! Enqueuing adjacent cells.`);
-        this.enqueueAdjacentCells(coord); // Add adjacent cells to queue on hit
+      console.log(`Hit at ${coord}! Enqueuing adjacent cells.`);
+      this.enqueueAdjacentCells(coord); // Add adjacent cells to queue on hit
     } else {
-        console.log(`Miss at ${coord}.`);
+      console.log(`Miss at ${coord}.`);
     }
 
     // Record attack attempt
@@ -87,4 +87,4 @@ export default class Player {
   }
 }
 
-module.exports = Player;
+
