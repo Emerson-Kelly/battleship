@@ -1,6 +1,7 @@
 import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
 import Player from "./player.js";
+import { renderGameBoard } from "./renderBoard.js";
 
 export default class GameBoardController {
   constructor() {
