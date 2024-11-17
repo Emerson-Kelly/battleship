@@ -5,7 +5,7 @@ import { createNoise2D } from 'simplex-noise';
 const noise2D = createNoise2D();
 
 function noise(x, z) {
-    return noise2D(x / 100, z / 100) * 40; // Wave effect
+    return noise2D(x / 100, z / 100) * 50; // Wave effect
 }
 
 // Set up the scene
@@ -18,12 +18,13 @@ document.body.appendChild(renderer.domElement);
 // Set background color to dark ocean blue
 scene.background = new THREE.Color(0x001a33); // Dark ocean blue background
 
-// Add lighting
+/* Add lighting
 const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
 scene.add(ambientLight);
+*/
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(100, 200, 100); // Position the light
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(200, 500, 200); // Position the light
 scene.add(directionalLight);
 
 // Create geometry for the ocean grid
@@ -42,9 +43,10 @@ grid.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
 // Create material for the grid particles
 const gMaterial = new THREE.PointsMaterial({
     color: 0x003366, // Dark ocean blue
-    size: 2, // Size of each grid point
+    size: 3, // Size of each grid point
     transparent: true,
     opacity: 0.8, // Slightly higher opacity for a less transparent effect
+    depthWrite: false, // Make sure the water is transparent
 });
 
 // Create the particle system for the grid
@@ -62,20 +64,35 @@ let time = 0;
 function mainloop() {
     time += 1;
     const positions = grid.attributes.position.array;
-    for (let i = 0; i < positions.length; i += 3) {
-        // Basic wave noise calculation
-        let waveHeight = noise(positions[i] + time / 40, positions[i + 2] + time / 20);
-        
-        // Add wave cap effect (simulating foam on top of waves)
-        const waveCapEffect = Math.sin(positions[i] * 0.1 + time / 10) * 2; // Sinusoidal crest
-        positions[i + 1] = waveHeight + waveCapEffect; // Combine base wave and crest
 
-        // Optional: Adjust the color of the foam (if you want to simulate lighter crest)
+    // Wave parameters
+    const waveFrequency = 0.5; // Controls wave density
+    const waveSpeed = 0.1; // Controls wave speed
+
+    for (let i = 0; i < positions.length; i += 3) {
+        // Calculate base wave height with noise
+        let waveHeight = noise(positions[i] + time / 20, positions[i + 2] + time / 20);
+        
+        // Add more complex wave motion using sin for wave crests and troughs
+        const complexWave = Math.sin(positions[i] * waveFrequency + time * waveSpeed) * Math.cos(positions[i + 2] * waveFrequency + time * waveSpeed);
+        waveHeight += complexWave * 5; // Scale the complexity of the waves
+        
+        // Simulate foam on top of waves
+        const waveCapEffect = Math.sin(positions[i] * 0.1 + time / 10) * 2;
+        positions[i + 1] = waveHeight + waveCapEffect;
+
+        // Adjust color for foam (lighter near the crest)
         if (positions[i + 1] > 30) {
             gMaterial.color.set(0x66ccff); // Lighter foam color
         } else {
             gMaterial.color.set(0x003366); // Dark ocean blue color
         }
+
+        // Optional: Create a more realistic shading effect based on light direction
+        const normal = new THREE.Vector3(0, 1, 0); // Simplified normal vector pointing up
+        const lightDirection = new THREE.Vector3().subVectors(directionalLight.position, new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])).normalize();
+        const dotProduct = Math.max(normal.dot(lightDirection), 0); // Simple Lambertian shading
+        gMaterial.opacity = Math.max(0.3, dotProduct); // Decrease opacity based on light angle
     }
     grid.attributes.position.needsUpdate = true;
 }
