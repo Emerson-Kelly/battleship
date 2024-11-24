@@ -33,5 +33,38 @@ html, body, canvas {
     align-items: center;
     justify-content: center;
   }
+  .ship {
+    background-color: #2f4f4f;
+  }
+  .hit {
+    background-color: red;
+  }
+  .miss {
+    background-color: #d3d3d3;
+  }
+  .sunk {
+    background-color: #4f80ea;
+    opacity: 0.2;
+  }
+.carrier {
+    background-color: #2f4f4f;
+  }
+  
+  .battleship {
+    background-color: #4b0082;
+  }
+  
+  .destroyer {
+    background-color: #ff6347;
+  }
+  
+  .submarine {
+    background-color: #3cb371;
+  }
+  
+  .patrol-boat {
+    background-color: #20b2aa;
+  }
+  
 
   

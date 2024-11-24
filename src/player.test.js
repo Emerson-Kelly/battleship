@@ -1,7 +1,6 @@
-
-const Player = require('./player.js');
-const GameBoard = require('./gameBoard.js');  // Import Gameboard if used directly
-const Ship = require('./ship.js');
+import Player from './player.js';
+import GameBoard from './gameBoard.js';
+import Ship from './ship.js';
 
 test("Player's attack() calls opponent's receiveAttack", () => {
     const player = new Player(true);

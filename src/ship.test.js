@@ -1,5 +1,4 @@
-
-const Ship = require("./ship.js");
+import Ship from "./ship";
 
 test("Test for initializing a Ship with a specific length", () => {
   const ship = new Ship(3);

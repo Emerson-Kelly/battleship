@@ -1,8 +1,7 @@
-
-const GameBoardController = require('./gameController');
-const Player = require('./player');
-const Ship = require('./ship');
-const GameBoard = require('./gameBoard.js');
+import GameBoardController from './gameController.js';
+import Player from './player.js';
+import Ship from './ship.js';
+import GameBoard from './gameBoard.js';
 
 describe("GameController", () => {
     

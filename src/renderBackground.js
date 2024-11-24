@@ -1,3 +1,4 @@
+/*
 import * as THREE from 'three';
 import { createNoise2D } from 'simplex-noise';
 
@@ -18,10 +19,10 @@ document.body.appendChild(renderer.domElement);
 // Set background color to dark ocean blue
 scene.background = new THREE.Color(0x001a33); // Dark ocean blue background
 
-/* Add lighting
-const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
-scene.add(ambientLight);
-*/
+// Add lighting
+//const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
+//scene.add(ambientLight);
+
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(200, 500, 200); // Position the light
@@ -113,3 +114,4 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+*/

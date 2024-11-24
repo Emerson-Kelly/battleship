@@ -49,7 +49,7 @@ export default class GameBoardController {
     console.log("Opponent's grid after attack:");
     this.logResult(opponent.gameBoard.grid); // Log opponent's grid after attack
 
-    // Optional: log boards after each attack for debugging
+    // log boards after each attack for debugging
     if (result) {
       console.log("Player's board:");
       this.logResult(this.player.gameBoard.grid);
@@ -81,16 +81,17 @@ export default class GameBoardController {
     const formattedGrid = grid.map((row) =>
       row.map((cell) => {
         if (cell === null) return "~"; // Empty water
-        if (cell === false) return "O"; // Missed shot
-        if (cell === true) return "X"; // Hit on a ship
+        if (cell === 'O') return "O"; // Missed shot
+        if (cell === 'X') return "X"; // Hit on a ship
+        if (cell === 'SUNK') return "SUNK"; // Marked as sunk
         if (cell instanceof Ship) return "S"; // Ship part (ship object)
         return cell;
       })
     );
-
-    // Use console.table to log the grid in a table format
+  
     console.table(formattedGrid);
   }
+  
 }
 
 

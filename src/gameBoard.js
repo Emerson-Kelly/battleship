@@ -1,67 +1,52 @@
 import Ship from "./ship.js";
+import Player from "./player.js";
 
 export default class GameBoard {
-  constructor(size = 10) {
-    this.grid = Array.from({ length: size }, () => Array(size).fill(null));
-    this.missedShots = [];
-    this.ships = [];
+  constructor() {
+    this.grid = Array(10)
+      .fill(null)
+      .map(() => Array(10).fill(null));
   }
 
   placeShip(ship, startCoord, direction) {
     const [startX, startY] = startCoord;
-    const length = ship.length;
+    const shipCoords = [];
 
-    const [endX, endY] = this.calculateEndCoordinates(
-      startX,
-      startY,
-      length,
-      direction
-    );
+    for (let i = 0; i < ship.length; i++) {
+      const coord =
+        direction === "horizontal"
+          ? [startX, startY + i]
+          : [startX + i, startY];
 
-    if (endX >= this.grid.length || endY >= this.grid[0].length) {
-      throw new Error("Ship placement is out of bounds");
+      shipCoords.push(coord);
+      this.grid[coord[0]][coord[1]] = ship;
     }
 
-    // Check if ship overlaps with existing ships
-    for (let i = 0; i < length; i++) {
-      const x = direction === "horizontal" ? startX : startX + i;
-      const y = direction === "horizontal" ? startY + i : startY;
-
-      if (this.grid[x][y] !== null) {
-        throw new Error("Ship placement overlaps with another ship");
-      }
-    }
-
-    // Place the ship on the grid
-    for (let i = 0; i < length; i++) {
-      const x = direction === "horizontal" ? startX : startX + i;
-      const y = direction === "horizontal" ? startY + i : startY;
-
-      this.grid[x][y] = ship; // Place ship reference in grid
-    }
-
-    // Add ship to ships array for tracking
-    this.ships.push(ship);
+    ship.setCoordinates(shipCoords);
   }
 
-  receiveAttack(coord) {
-    const [x, y] = coord;
-    const cell = this.grid[x][y];
+  receiveAttack([x, y]) {
+    const target = this.grid[x][y];
 
-    if (cell === null) {
-      // Miss
-      this.grid[x][y] = "O"; // Mark as miss
-      this.missedShots.push(coord);
-      return false;
-    } else if (cell instanceof Ship) {
-      // Hit on a ship
-      cell.hit(); // Increment the ship's hit counter
-      this.grid[x][y] = "X"; // Mark cell as hit
-      //this.grid[x][y] = { ship: cell, hit: true };  // Mark cell as hit
+    if (target instanceof Ship) {
+      target.hit();
+      this.grid[x][y] = "X"; // Temporarily mark as hit
+
+      // Check if the ship is sunk
+      if (target.isSunk()) {
+        console.log(`${target.type} has been sunk!`);
+
+        // Change all ship's coordinates to the sunk class
+        target.getCoordinates().forEach(([coordX, coordY]) => {
+          this.grid[coordX][coordY] = "SUNK";
+        });
+      }
+
       return true;
+    } else {
+      this.grid[x][y] = "O"; // Mark the cell as a miss
+      return false;
     }
-
-    return false; // Already attacked or invalid cell
   }
 
   allShipsSunk() {
@@ -89,5 +74,3 @@ export default class GameBoard {
     );
   }
 }
-
-

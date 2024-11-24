@@ -86,5 +86,3 @@ export default class Player {
     return coord;
   }
 }
-
-
