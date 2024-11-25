@@ -1,8 +1,10 @@
 import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
 
-const opponentGameBoard = new GameBoard();
-const playerGameBoard = new GameBoard();
+
+
+export const opponentGameBoard = new GameBoard();
+export const playerGameBoard = new GameBoard();
 
 // Create ships with types
 const playerCarrier = new Ship(5, "carrier");
@@ -22,11 +24,13 @@ opponentGameBoard.placeShip(opponentCarrier, [0, 0], "horizontal");
 opponentGameBoard.placeShip(opponentBattleship, [3, 3], "vertical");
 opponentGameBoard.placeShip(opponentSubmarine, [6, 6], "horizontal");
 
-opponentGameBoard.receiveAttack([3, 3]);
+
+/*opponentGameBoard.receiveAttack([3, 3]);
 opponentGameBoard.receiveAttack([4, 3]);
 opponentGameBoard.receiveAttack([5, 3]);
 opponentGameBoard.receiveAttack([6, 3]);
 console.log(opponentBattleship.getCoordinates());
+*/
 
 playerGameBoard.placeShip(playerSubmarine, [1, 1], "vertical");
 playerGameBoard.placeShip(playerPatrolBoat, [2, 2], "horizontal");
@@ -36,15 +40,17 @@ playerGameBoard.receiveAttack([2, 1]);
 playerGameBoard.receiveAttack([3, 1]);
 
 // Function to render the player's or opponent's game board
-function renderGameBoard(gameBoard, boardElement) {
+ export default function renderGameBoard(gameBoard, boardElement) {
   // Clear the board first
   boardElement.innerHTML = "";
 
   // Loop through each cell in the grid and render the corresponding state
-  gameBoard.grid.forEach((row) => {
-    row.forEach((cell) => {
+  gameBoard.grid.forEach((row, rowIndex) => {
+    row.forEach((cell, colIndex) => {
       const cellElement = document.createElement("div");
       cellElement.classList.add("cell");
+      cellElement.setAttribute('data-x', rowIndex);
+      cellElement.setAttribute('data-y', colIndex);
 
       if (cell === "SUNK") {
         console.log("SUNK");

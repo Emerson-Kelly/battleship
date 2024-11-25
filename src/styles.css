@@ -33,6 +33,10 @@ html, body, canvas {
     align-items: center;
     justify-content: center;
   }
+  #opponent-game-board .cell:hover {
+    outline: 2px solid red;
+    opacity: 50%;
+}
   .ship {
     background-color: #2f4f4f;
   }

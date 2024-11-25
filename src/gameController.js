@@ -2,6 +2,7 @@ import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
 import Player from "./player.js";
 import { renderGameBoard } from "./renderBoard.js";
+import renderUIAttack from "./renderUIAttack.js";
 
 export default class GameBoardController {
   constructor() {
@@ -21,6 +22,7 @@ export default class GameBoardController {
     this.computer.gameBoard.placeShip(computerShip, [3, 3], "horizontal");
 
     this.currentPlayer = this.player;
+    renderUIAttack();
   }
 
   startGame() {
@@ -71,6 +73,9 @@ export default class GameBoardController {
   switchTurns() {
     this.currentPlayer =
       this.currentPlayer === this.player ? this.computer : this.player;
+      if (this.currentPlayer === this.player) {
+        renderUIAttack();
+      }
   }
 
   getOpponent() {
@@ -81,17 +86,14 @@ export default class GameBoardController {
     const formattedGrid = grid.map((row) =>
       row.map((cell) => {
         if (cell === null) return "~"; // Empty water
-        if (cell === 'O') return "O"; // Missed shot
-        if (cell === 'X') return "X"; // Hit on a ship
-        if (cell === 'SUNK') return "SUNK"; // Marked as sunk
+        if (cell === "O") return "O"; // Missed shot
+        if (cell === "X") return "X"; // Hit on a ship
+        if (cell === "SUNK") return "SUNK"; // Marked as sunk
         if (cell instanceof Ship) return "S"; // Ship part (ship object)
         return cell;
       })
     );
-  
+
     console.table(formattedGrid);
   }
-  
 }
-
-
