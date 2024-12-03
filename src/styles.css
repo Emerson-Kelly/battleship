@@ -11,8 +11,9 @@ html, body, canvas {
     z-index: -1;
     top: 0;
     left: 0;
-    background-color: #ffffff;
+    background-color: #fff7e7;
   }
+ 
 
   .board {
     display: grid;
@@ -71,4 +72,19 @@ html, body, canvas {
   }
   
 
-  
+  @media only screen and (max-width: 600px) {
+    .gameboard-containers {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .board {
+      grid-template-columns: repeat(10, 36px);
+    }
+    
+    .cell {
+      width: 36px;
+      height: 36px;
+    }
+
+  }

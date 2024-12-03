@@ -67,8 +67,8 @@ function mainloop() {
     const positions = grid.attributes.position.array;
 
     // Wave parameters
-    const waveFrequency = 0.5; // Controls wave density
-    const waveSpeed = 0.1; // Controls wave speed
+    const waveFrequency = 10; // Controls wave density
+    const waveSpeed = 10; // Controls wave speed
 
     for (let i = 0; i < positions.length; i += 3) {
         // Calculate base wave height with noise

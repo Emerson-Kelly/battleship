@@ -1,28 +1,36 @@
 import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
-
+import { opponent } from "./index.js";
 
 
 export const opponentGameBoard = new GameBoard();
 export const playerGameBoard = new GameBoard();
 
 // Create ships with types
-const playerCarrier = new Ship(5, "carrier");
-const playerBattleship = new Ship(4, "battleship");
-const playerDestroyer = new Ship(3, "destroyer");
-const playerSubmarine = new Ship(3, "submarine");
-const playerPatrolBoat = new Ship(2, "patrol-boat");
+export const playerCarrier = new Ship(5, "carrier");
+export const playerBattleship = new Ship(4, "battleship");
+export const playerDestroyer = new Ship(3, "destroyer");
+export const playerSubmarine = new Ship(3, "submarine");
+export const playerPatrolBoat = new Ship(2, "patrol-boat");
 
-const opponentCarrier = new Ship(5, "carrier");
-const opponentBattleship = new Ship(4, "battleship");
-const opponentDestroyer = new Ship(3, "destroyer");
-const opponentSubmarine = new Ship(3, "submarine");
-const opponentPatrolBoat = new Ship(2, "patrol-boat");
+playerGameBoard.placeShip(playerCarrier, [0, 0], "horizontal");
+playerGameBoard.placeShip(playerBattleship, [3, 3], "vertical");
+playerGameBoard.placeShip(playerDestroyer, [4, 1], "vertical");
+playerGameBoard.placeShip(playerSubmarine, [6, 6], "horizontal");
+playerGameBoard.placeShip(playerPatrolBoat, [8, 6], "vertical");
+
+export const opponentCarrier = new Ship(5, "carrier");
+export const opponentBattleship = new Ship(4, "battleship");
+export const opponentDestroyer = new Ship(3, "destroyer");
+export const opponentSubmarine = new Ship(3, "submarine");
+export const opponentPatrolBoat = new Ship(2, "patrol-boat");
 
 // Place ships on the game boards
 opponentGameBoard.placeShip(opponentCarrier, [0, 0], "horizontal");
 opponentGameBoard.placeShip(opponentBattleship, [3, 3], "vertical");
+opponentGameBoard.placeShip(opponentDestroyer, [4, 1], "vertical");
 opponentGameBoard.placeShip(opponentSubmarine, [6, 6], "horizontal");
+opponentGameBoard.placeShip(opponentPatrolBoat, [8, 6], "vertical");
 
 
 /*opponentGameBoard.receiveAttack([3, 3]);
@@ -32,12 +40,12 @@ opponentGameBoard.receiveAttack([6, 3]);
 console.log(opponentBattleship.getCoordinates());
 */
 
-playerGameBoard.placeShip(playerSubmarine, [1, 1], "vertical");
-playerGameBoard.placeShip(playerPatrolBoat, [2, 2], "horizontal");
 
+/*
 playerGameBoard.receiveAttack([1, 1]);
 playerGameBoard.receiveAttack([2, 1]);
 playerGameBoard.receiveAttack([3, 1]);
+*/
 
 // Function to render the player's or opponent's game board
  export default function renderGameBoard(gameBoard, boardElement) {
@@ -63,15 +71,17 @@ playerGameBoard.receiveAttack([3, 1]);
         cellElement.classList.add("ship");
       } else if (cell === "X") {
         console.log("hit");
+        //player.attack(cell);
         cellElement.classList.add("hit");
       } else if (cell === "O") {
         cellElement.classList.add("miss");
-      }
+      } 
 
       // Append the cell to the board
       boardElement.appendChild(cellElement);
     });
   });
+  
 }
 
 // Render the game boards

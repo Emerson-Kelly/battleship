@@ -5,7 +5,8 @@ export default class GameBoard {
   constructor() {
     this.grid = Array(10)
       .fill(null)
-      .map(() => Array(10).fill(null));
+      .map(() => Array(10).fill("~"));
+    this.ships = [];
   }
 
   placeShip(ship, startCoord, direction) {
@@ -23,30 +24,50 @@ export default class GameBoard {
     }
 
     ship.setCoordinates(shipCoords);
+    this.ships.push(ship);
   }
 
-  receiveAttack([x, y]) {
-    const target = this.grid[x][y];
+  receiveAttack(coords) {
+    // Ensure coords is an array with two elements
+    if (!Array.isArray(coords) || coords.length !== 2) {
+      console.error("Invalid attack coordinate:", coords);
+      return false; // Return false if coords are invalid
+    }
 
-    if (target instanceof Ship) {
-      target.hit();
-      this.grid[x][y] = "X"; // Temporarily mark as hit
+    const [y, x] = coords;
 
+    const cell = this.grid[y][x];
+
+   if (cell instanceof Ship) {
+      // Hit
+      cell.hit([y, x]); // Mark hit on the ship
+      console.log(cell);
+     
+      //console.log(cell.hit(coords));
+      this.grid[y][x] = "X"; // Update grid to reflect the hit
+      
       // Check if the ship is sunk
-      if (target.isSunk()) {
-        console.log(`${target.type} has been sunk!`);
+      if (cell.isSunk()) {
+        console.log(`${cell.type} has been sunk!`);
 
         // Change all ship's coordinates to the sunk class
-        target.getCoordinates().forEach(([coordX, coordY]) => {
+        cell.getCoordinates().forEach(([coordX, coordY]) => {
           this.grid[coordX][coordY] = "SUNK";
         });
       }
-
-      return true;
-    } else {
-      this.grid[x][y] = "O"; // Mark the cell as a miss
-      return false;
+  
+      return true; // Indicate hit
     }
+    else if (cell === "~") {
+      // Miss
+      this.grid[y][x] = "O";
+      return false; // Indicate miss
+    } 
+ 
+  
+
+    // If the cell is already marked as "O" or "X", it's been attacked before.
+    return null; // Prevent re-attacks
   }
 
   allShipsSunk() {
@@ -72,5 +93,10 @@ export default class GameBoard {
         .map((row) => row.map((cell) => (cell ? "S" : "-")).join(" "))
         .join("\n")
     );
+  }
+
+  getShipAt([y, x]) {
+    const cell = this.grid[y][x];
+    return cell instanceof Ship ? cell : null; // Return the ship instance or null
   }
 }
