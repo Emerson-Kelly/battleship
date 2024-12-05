@@ -22,29 +22,6 @@ export default class Player {
       return false; // Exit early with a miss-like result
     }
   
-    
-    // Call the opponent's receiveAttack method
-    const result = target.gameBoard.receiveAttack(coord);
-  
-  
-   console.log(result);
-    if (result) {
-      console.log(`Hit at ${coord}!`);
-      this.previousHits.push(coord);
-  
-      // Check if a ship was sunk
-      const isSunk = target.gameBoard.isShipSunk(coord);
-      if (isSunk) {
-        console.log("Ship sunk! Clearing hit queue and previous hits.");
-        this.hitQueue = []; // Clear the hit queue
-        this.previousHits = []; // Clear previous hits for the sunk ship
-      } else {
-        this.enqueueAdjacentCells(coord); // Enqueue adjacent cells if the ship isn't sunk
-      }
-    } else {
-      console.log(`Miss at ${coord}.`);
-    }
-  
     // Record attack attempt
     this.previousAttacks.push(coord);
   
@@ -56,7 +33,6 @@ export default class Player {
       this.refineHitQueueBasedOnAxis(this.previousHits);
     }
   
-    return result; // Explicitly return the result of the attack
   }
   
   
