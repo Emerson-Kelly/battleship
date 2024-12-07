@@ -1,9 +1,10 @@
 export default class Ship {
-  constructor(length, type = "unknown") {
+  constructor(length, type = "unknown", orientation = "horizontal") {
     this.length = length;
     this.hits = 0;
     this.type = type;
     this.coordinates = [];
+    this.orientation = orientation;
   }
 
   hit() {
@@ -20,5 +21,13 @@ export default class Ship {
 
   getCoordinates() {
     return this.coordinates;
+  }
+
+  setOrientation(orientation) {
+    this.orientation = orientation;
+  }
+
+  getOrientation() {
+    return this.orientation;
   }
 }

@@ -24,6 +24,7 @@ export default class GameBoard {
     }
 
     ship.setCoordinates(shipCoords);
+    ship.setOrientation(direction);
     this.ships.push(ship);
   }
 

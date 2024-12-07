@@ -3,88 +3,126 @@
 @tailwind utilities;
 
 html, body, canvas {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    background-color: #fff7e7;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background-color: #fff7e7;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 48px);
+  grid-template-rows: repeat(10, 48px);
+  position: relative;
+  gap: 1px;
+  border: 1px solid #0066cc;
+}
+
+
+.cell {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  outline: 0.5px dashed #0066cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img, .ship-container.horizontal {
+  height: 3rem;
+}
+
+img, .ship-container.vertical {
+  height: 3rem;
+}
+
+.ship-container {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ship-container.horizontal {
+  grid-column: span var(--ship-length);
+  grid-row: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ship-container.vertical {
+  grid-row: span var(--ship-length);
+  grid-column: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.ship-svg {
+  width: 100%;
+  height: 100%;
+}
+
+#opponent-game-board .cell:hover {
+  outline: 2px solid red;
+  opacity: 50%;
+}
+
+.ship {
+  background-color: #2f4f4f;
+}
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: #d3d3d3;
+}
+
+.sunk {
+  background-color: #4f80ea;
+  opacity: 0.2;
+}
+
+.carrier {
+  background-color: #2f4f4f;
+}
+
+.battleship {
+  background-color: #4b0082;
+}
+
+.destroyer {
+  background-color: #ff6347;
+}
+
+.submarine {
+  background-color: #3cb371;
+}
+
+.patrol-boat {
+  background-color: #20b2aa;
+}
+
+@media only screen and (max-width: 600px) {
+  .gameboard-containers {
+    flex-direction: column;
+    gap: 2rem;
   }
- 
 
   .board {
-    display: grid;
-    grid-template-columns: repeat(10, 48px); /* Adjust '10' based on grid size */
-    gap: 2px;
-    grid-gap: 1px;
-    width: fit-content;
-    border: 1px solid #0066cc;
+    grid-template-columns: repeat(10, 36px);
   }
-  
+
   .cell {
-    width: 48px;
-    height: 48px;
-    outline: 0.5px dashed #0066cc;
-    text-align: center;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 36px;
+    height: 36px;
   }
-  #opponent-game-board .cell:hover {
-    outline: 2px solid red;
-    opacity: 50%;
 }
-  .ship {
-    background-color: #2f4f4f;
-  }
-  .hit {
-    background-color: red;
-  }
-  .miss {
-    background-color: #d3d3d3;
-  }
-  .sunk {
-    background-color: #4f80ea;
-    opacity: 0.2;
-  }
-.carrier {
-    background-color: #2f4f4f;
-  }
-  
-  .battleship {
-    background-color: #4b0082;
-  }
-  
-  .destroyer {
-    background-color: #ff6347;
-  }
-  
-  .submarine {
-    background-color: #3cb371;
-  }
-  
-  .patrol-boat {
-    background-color: #20b2aa;
-  }
-  
-
-  @media only screen and (max-width: 600px) {
-    .gameboard-containers {
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .board {
-      grid-template-columns: repeat(10, 36px);
-    }
-    
-    .cell {
-      width: 36px;
-      height: 36px;
-    }
-
-  }
