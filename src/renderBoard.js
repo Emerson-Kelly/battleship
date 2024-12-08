@@ -8,6 +8,8 @@ import destroyerIcon from "./assets/ships/destroyerIcon.svg";
 import submarineIcon from "./assets/ships/submarineIcon.svg";
 import patrolIcon from "./assets/ships/patrolIcon.svg";
 
+import computerBoardPlacement from "./computerBoardPlacement.js";
+
 
 export const opponentGameBoard = new GameBoard();
 export const playerGameBoard = new GameBoard();
@@ -27,6 +29,8 @@ playerGameBoard.placeShip(playerDestroyer, [7, 2], "horizontal");
 playerGameBoard.placeShip(playerSubmarine, [0, 8], "vertical");
 playerGameBoard.placeShip(playerPatrolBoat, [3, 6], "horizontal");
 
+
+/*
 // Opponent Ships
 export const opponentCarrier = new Ship(5, "carrier");
 export const opponentBattleship = new Ship(4, "battleship");
@@ -40,7 +44,8 @@ opponentGameBoard.placeShip(opponentBattleship, [5, 0], "horizontal");
 opponentGameBoard.placeShip(opponentDestroyer, [6, 4], "vertical");
 opponentGameBoard.placeShip(opponentSubmarine, [8, 7], "horizontal");
 opponentGameBoard.placeShip(opponentPatrolBoat, [0, 4], "vertical");
-
+*/
+computerBoardPlacement(opponentGameBoard);
 
 
 // Function to render the player's or opponent's game board

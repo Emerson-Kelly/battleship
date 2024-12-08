@@ -4,6 +4,7 @@ import Player from "./player.js";
 import { renderGameBoard } from "./renderBoard.js";
 import renderUIAttack from "./renderUIAttack.js";
 
+
 export default class GameBoardController {
   constructor() {
     this.player = new Player();
@@ -12,12 +13,12 @@ export default class GameBoardController {
   }
 
   initializeGame() {
-    
 
-   
-
+  
     this.currentPlayer = this.player;
+   
     renderUIAttack();
+
   }
 
   startGame() {
