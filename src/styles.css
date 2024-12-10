@@ -4,14 +4,26 @@
 
 html, body, canvas {
   margin: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: block;
   position: absolute;
   z-index: -1;
   top: 0;
   left: 0;
   background-color: #fff7e7;
+}
+
+.player-one {
+  max-height: 631px;
+}
+
+.player-two {
+  max-height: 631px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .board {
@@ -33,6 +45,21 @@ html, body, canvas {
   align-items: center;
   justify-content: center;
 }
+
+.cell.hover {
+  background-color: rgba(0, 128, 255, 0.3); /* Highlight potential drop zones */
+}
+
+.drag-drop-ships-container img {
+  cursor: grab;
+  width: 60px; /* Adjust size as needed */
+  margin: 5px;
+}
+
+.drag-drop-ships-container img:active {
+  cursor: grabbing;
+}
+
 
 img, .ship-container.horizontal {
   height: 3rem;
@@ -91,24 +118,33 @@ img, .ship-container.vertical {
   opacity: 0.2;
 }
 
+.drag-drop-ships-container {
+  max-width: 491px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .carrier {
-  background-color: #2f4f4f;
+  width: 244px;
 }
 
 .battleship {
-  background-color: #4b0082;
+ width: 192px;
 }
 
 .destroyer {
-  background-color: #ff6347;
+  width: 146px;
 }
 
 .submarine {
-  background-color: #3cb371;
+  width: 144px;
 }
 
 .patrol-boat {
-  background-color: #20b2aa;
+  width: 97px;
 }
 
 @media only screen and (max-width: 600px) {

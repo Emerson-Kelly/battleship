@@ -1,6 +1,7 @@
 import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
 import { opponent } from "./index.js";
+import playerBoardPlacement from "./playerBoardPlacement.js";
 
 import carrierIcon from "./assets/ships/carrierIcon.svg";
 import battleshipIcon from "./assets/ships/battleshipIcon.svg";
@@ -13,7 +14,7 @@ import computerBoardPlacement from "./computerBoardPlacement.js";
 
 export const opponentGameBoard = new GameBoard();
 export const playerGameBoard = new GameBoard();
-
+/*
 // Create ships with types
 // Player Ships
 export const playerCarrier = new Ship(5, "carrier");
@@ -30,7 +31,7 @@ playerGameBoard.placeShip(playerSubmarine, [0, 8], "vertical");
 playerGameBoard.placeShip(playerPatrolBoat, [3, 6], "horizontal");
 
 
-/*
+
 // Opponent Ships
 export const opponentCarrier = new Ship(5, "carrier");
 export const opponentBattleship = new Ship(4, "battleship");
@@ -45,6 +46,7 @@ opponentGameBoard.placeShip(opponentDestroyer, [6, 4], "vertical");
 opponentGameBoard.placeShip(opponentSubmarine, [8, 7], "horizontal");
 opponentGameBoard.placeShip(opponentPatrolBoat, [0, 4], "vertical");
 */
+playerBoardPlacement(playerGameBoard);
 computerBoardPlacement(opponentGameBoard);
 
 

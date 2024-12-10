@@ -3,7 +3,7 @@ import GameBoard from "./gameBoard.js";
 import Player from "./player.js";
 import { renderGameBoard } from "./renderBoard.js";
 import renderUIAttack from "./renderUIAttack.js";
-
+import playerBoardPlacement from "./playerBoardPlacement.js";
 
 export default class GameBoardController {
   constructor() {
@@ -16,7 +16,6 @@ export default class GameBoardController {
 
   
     this.currentPlayer = this.player;
-   
     renderUIAttack();
 
   }
