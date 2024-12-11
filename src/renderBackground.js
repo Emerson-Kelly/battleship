@@ -20,8 +20,8 @@ document.body.appendChild(renderer.domElement);
 scene.background = new THREE.Color(0x001a33); // Dark ocean blue background
 
 // Add lighting
-//const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
-//scene.add(ambientLight);
+const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
+scene.add(ambientLight);
 
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);

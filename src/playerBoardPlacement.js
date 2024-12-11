@@ -28,23 +28,30 @@ export default function playerBoardPlacement(gameBoard) {
     e.preventDefault();
     const targetCell = e.target.closest(".cell");
     const draggedShipType = e.dataTransfer.getData("ship-type");
-
+    const draggedShipElement = document.querySelector(`.${draggedShipType}`); // Get the dragged ship element
+  
     if (targetCell && draggedShipType) {
       const row = parseInt(targetCell.dataset.x, 10);
       const col = parseInt(targetCell.dataset.y, 10);
       const orientation = e.dataTransfer.getData("orientation");
-
+  
       const shipLength = getShipLength(draggedShipType);
-
+  
       if (isValidPlacement(gameBoard, shipLength, [row, col], orientation)) {
         const ship = createShip(draggedShipType);
         gameBoard.placeShip(ship, [row, col], orientation);
         renderGameBoard(gameBoard, playerGameBoardElement);
+  
+        // Hide the dragged ship after successful placement
+        if (draggedShipElement) {
+          draggedShipElement.style.display = "none";
+        }
       } else {
         alert("Invalid placement!");
       }
     }
   });
+  
 }
 
 // Helper to get ship length by type
@@ -110,11 +117,6 @@ function shipPlacementComponent() {
     shipImg.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("ship-type", type);
       e.dataTransfer.setData("orientation", "horizontal"); // Default orientation
-    });
-
-    shipImg.addEventListener("dragleave", (e) => {
-        shipImg.setAttribute("draggable", false);
-        shipImg.style.display = "none";
     });
 
     dragDropShipsContainer.appendChild(shipImg);
