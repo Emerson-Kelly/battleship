@@ -16,12 +16,18 @@ export default function playerBoardPlacement(gameBoard) {
   playerGameBoardElement.addEventListener("dragover", (e) => {
     e.preventDefault(); // Allow dropping
     const targetCell = e.target.closest(".cell");
-    if (targetCell) targetCell.classList.add("hover");
+
+    if (targetCell) {
+        targetCell.classList.add("hover");
+        targetCell.style.setProperty('--ship-length', 1);
+    }
   });
 
   playerGameBoardElement.addEventListener("dragleave", (e) => {
     const targetCell = e.target.closest(".cell");
-    if (targetCell) targetCell.classList.remove("hover");
+    if (targetCell) {
+        targetCell.classList.remove("hover");
+    }
   });
 
   playerGameBoardElement.addEventListener("drop", (e) => {
@@ -29,29 +35,29 @@ export default function playerBoardPlacement(gameBoard) {
     const targetCell = e.target.closest(".cell");
     const draggedShipType = e.dataTransfer.getData("ship-type");
     const draggedShipElement = document.querySelector(`.${draggedShipType}`); // Get the dragged ship element
-  
+
     if (targetCell && draggedShipType) {
       const row = parseInt(targetCell.dataset.x, 10);
       const col = parseInt(targetCell.dataset.y, 10);
       const orientation = e.dataTransfer.getData("orientation");
-  
+
       const shipLength = getShipLength(draggedShipType);
-  
+
       if (isValidPlacement(gameBoard, shipLength, [row, col], orientation)) {
         const ship = createShip(draggedShipType);
         gameBoard.placeShip(ship, [row, col], orientation);
         renderGameBoard(gameBoard, playerGameBoardElement);
-  
+
         // Hide the dragged ship after successful placement
         if (draggedShipElement) {
           draggedShipElement.style.display = "none";
+       
         }
       } else {
         alert("Invalid placement!");
       }
     }
   });
-  
 }
 
 // Helper to get ship length by type
@@ -86,7 +92,6 @@ function isValidPlacement(gameBoard, shipLength, startPosition, orientation) {
     const checkCol = orientation === "horizontal" ? col + i : col;
 
     if (gameBoard.grid[checkRow][checkCol] !== "~") return false;
-
   }
 
   return true;
@@ -100,26 +105,48 @@ function shipPlacementComponent() {
   playerOneGameBoard.prepend(dragDropShipsContainer);
 
   const ships = [
-    { src: carrierIcon, alt: "Carrier", type: "carrier" },
-    { src: battleshipIcon, alt: "Battleship", type: "battleship" },
-    { src: destroyerIcon, alt: "Destroyer", type: "destroyer" },
-    { src: submarineIcon, alt: "Submarine", type: "submarine" },
-    { src: patrolIcon, alt: "Patrol", type: "patrol-boat" },
+    { src: carrierIcon, alt: "Carrier", type: "carrier", length: 5, orientation: "horizontal" },
+    { src: battleshipIcon, alt: "Battleship", type: "battleship", length: 4, orientation: "horizontal"  },
+    { src: destroyerIcon, alt: "Destroyer", type: "destroyer", length: 3, orientation: "horizontal"  },
+    { src: submarineIcon, alt: "Submarine", type: "submarine", length: 3, orientation: "horizontal"  },
+    { src: patrolIcon, alt: "Patrol", type: "patrol-boat", length: 2, orientation: "horizontal"  },
   ];
 
-  ships.forEach(({ src, alt, type }) => {
+  ships.forEach(({ src, alt, type, length, orientation }) => {
     const shipImg = document.createElement("img");
     shipImg.src = src;
     shipImg.alt = alt;
+    shipImg.orientation = orientation;
     shipImg.classList.add(type);
     shipImg.setAttribute("draggable", true);
+    shipImg.dataset.length = length;
 
+    shipImg.addEventListener("click", (e) => {
+        if (shipImg.orientation === "horizontal") {
+            shipImg.orientation = "vertical";
+            shipImg.style.transform = 'rotate(90deg)';
+        }
+         else if (shipImg.orientation === "vertical") {
+            shipImg.orientation = "horizontal";
+            shipImg.style.transform = 'rotate(0deg)';
+         }
+        console.log(shipImg.orientation);
+      });
+    
     shipImg.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("ship-type", type);
+      e.dataTransfer.setData("ship-length", length); 
       e.dataTransfer.setData("orientation", "horizontal"); // Default orientation
+      shipImg.style.display = "hidden";
+      e.dataTransfer.setData("orientation", shipImg.orientation); 
+      shipImg.style.width = "6rem"; 
     });
 
-    dragDropShipsContainer.appendChild(shipImg);
+    shipImg.addEventListener("dragend", () => {
+        shipImg.style.width = ""; // Reset width after dragging
+      });
 
+    dragDropShipsContainer.appendChild(shipImg);
+    
   });
 }

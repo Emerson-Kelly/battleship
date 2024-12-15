@@ -47,12 +47,14 @@ html, body, canvas {
 }
 
 .cell.hover {
-  background-color: rgba(0, 128, 255, 0.3); /* Highlight potential drop zones */
+  background-color: rgba(0, 128, 255, 0.3);
+  --ship-length: 1; /* Default ship length (in case it's not set dynamically) */
+  width: calc(100% * var(--ship-length)); /* Dynamically change width based on ship length */
+  transition: background-color 0.3s ease; /* Optional smooth transition */
 }
 
 .drag-drop-ships-container img {
   cursor: grab;
-  width: 60px; /* Adjust size as needed */
   margin: 5px;
 }
 
@@ -124,27 +126,32 @@ img, .ship-container.vertical {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  /*gap: 1rem;*/
 }
 
 .carrier {
-  width: 244px;
+  /*width: 244px;*/
+  width: 5rem;
 }
 
 .battleship {
- width: 192px;
+ /*width: 192px;*/
+ width: 5rem;
 }
 
 .destroyer {
-  width: 146px;
+  /*width: 146px;*/
+  width: 5rem;
 }
 
 .submarine {
-  width: 144px;
+  /*width: 144px;*/
+  width: 5rem;
 }
 
 .patrol-boat {
-  width: 97px;
+  /*width: 97px;*/
+  width: 5rem;
 }
 
 @media only screen and (max-width: 600px) {
