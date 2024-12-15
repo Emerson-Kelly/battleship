@@ -6,6 +6,10 @@ import destroyerIcon from "./assets/ships/destroyerIcon.svg";
 import submarineIcon from "./assets/ships/submarineIcon.svg";
 import patrolIcon from "./assets/ships/patrolIcon.svg";
 
+// Global variables to track ship data during drag-and-drop
+let currentShipLength = 0;
+let currentOrientation = "horizontal";
+
 export default function playerBoardPlacement(gameBoard) {
   // Display the draggable ships at the top of the board
   shipPlacementComponent();
@@ -15,23 +19,35 @@ export default function playerBoardPlacement(gameBoard) {
   // Add event listeners for drag-and-drop on the game board
   playerGameBoardElement.addEventListener("dragover", (e) => {
     e.preventDefault(); // Allow dropping
-    const targetCell = e.target.closest(".cell");
+    clearHoverHighlights();
 
+    const targetCell = e.target.closest(".cell");
     if (targetCell) {
-        targetCell.classList.add("hover");
-        targetCell.style.setProperty('--ship-length', 1);
+      const row = parseInt(targetCell.dataset.x, 10);
+      const col = parseInt(targetCell.dataset.y, 10);
+
+      // Highlight cells based on the ship's length and orientation
+      for (let i = 0; i < currentShipLength; i++) {
+        const hoverRow = currentOrientation === "horizontal" ? row : row + i;
+        const hoverCol = currentOrientation === "horizontal" ? col + i : col;
+
+        // Ensure within bounds
+        if (hoverRow < 10 && hoverCol < 10) {
+          const hoverCell = playerGameBoardElement.querySelector(
+            `[data-x="${hoverRow}"][data-y="${hoverCol}"]`
+          );
+          if (hoverCell) hoverCell.classList.add("hover");
+        }
+      }
     }
   });
 
-  playerGameBoardElement.addEventListener("dragleave", (e) => {
-    const targetCell = e.target.closest(".cell");
-    if (targetCell) {
-        targetCell.classList.remove("hover");
-    }
-  });
+  playerGameBoardElement.addEventListener("dragleave", clearHoverHighlights);
 
   playerGameBoardElement.addEventListener("drop", (e) => {
     e.preventDefault();
+    clearHoverHighlights();
+
     const targetCell = e.target.closest(".cell");
     const draggedShipType = e.dataTransfer.getData("ship-type");
     const draggedShipElement = document.querySelector(`.${draggedShipType}`); // Get the dragged ship element
@@ -39,25 +55,28 @@ export default function playerBoardPlacement(gameBoard) {
     if (targetCell && draggedShipType) {
       const row = parseInt(targetCell.dataset.x, 10);
       const col = parseInt(targetCell.dataset.y, 10);
-      const orientation = e.dataTransfer.getData("orientation");
 
-      const shipLength = getShipLength(draggedShipType);
-
-      if (isValidPlacement(gameBoard, shipLength, [row, col], orientation)) {
+      if (isValidPlacement(gameBoard, currentShipLength, [row, col], currentOrientation)) {
         const ship = createShip(draggedShipType);
-        gameBoard.placeShip(ship, [row, col], orientation);
+        gameBoard.placeShip(ship, [row, col], currentOrientation);
         renderGameBoard(gameBoard, playerGameBoardElement);
 
         // Hide the dragged ship after successful placement
         if (draggedShipElement) {
-          draggedShipElement.style.display = "none";
-       
+          draggedShipElement.style.opacity = "0.5";
+          draggedShipElement.style.pointerEvents = "none";
         }
       } else {
         alert("Invalid placement!");
       }
     }
   });
+
+  // Helper to clear hover highlights
+  function clearHoverHighlights() {
+    const hoverCells = playerGameBoardElement.querySelectorAll(".cell.hover");
+    hoverCells.forEach((cell) => cell.classList.remove("hover"));
+  }
 }
 
 // Helper to get ship length by type
@@ -106,10 +125,10 @@ function shipPlacementComponent() {
 
   const ships = [
     { src: carrierIcon, alt: "Carrier", type: "carrier", length: 5, orientation: "horizontal" },
-    { src: battleshipIcon, alt: "Battleship", type: "battleship", length: 4, orientation: "horizontal"  },
-    { src: destroyerIcon, alt: "Destroyer", type: "destroyer", length: 3, orientation: "horizontal"  },
-    { src: submarineIcon, alt: "Submarine", type: "submarine", length: 3, orientation: "horizontal"  },
-    { src: patrolIcon, alt: "Patrol", type: "patrol-boat", length: 2, orientation: "horizontal"  },
+    { src: battleshipIcon, alt: "Battleship", type: "battleship", length: 4, orientation: "horizontal" },
+    { src: destroyerIcon, alt: "Destroyer", type: "destroyer", length: 3, orientation: "horizontal" },
+    { src: submarineIcon, alt: "Submarine", type: "submarine", length: 3, orientation: "horizontal" },
+    { src: patrolIcon, alt: "Patrol", type: "patrol-boat", length: 2, orientation: "horizontal" },
   ];
 
   ships.forEach(({ src, alt, type, length, orientation }) => {
@@ -122,31 +141,23 @@ function shipPlacementComponent() {
     shipImg.dataset.length = length;
 
     shipImg.addEventListener("click", (e) => {
-        if (shipImg.orientation === "horizontal") {
-            shipImg.orientation = "vertical";
-            shipImg.style.transform = 'rotate(90deg)';
-        }
-         else if (shipImg.orientation === "vertical") {
-            shipImg.orientation = "horizontal";
-            shipImg.style.transform = 'rotate(0deg)';
-         }
-        console.log(shipImg.orientation);
-      });
-    
-    shipImg.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("ship-type", type);
-      e.dataTransfer.setData("ship-length", length); 
-      e.dataTransfer.setData("orientation", "horizontal"); // Default orientation
-      shipImg.style.display = "hidden";
-      e.dataTransfer.setData("orientation", shipImg.orientation); 
-      shipImg.style.width = "6rem"; 
+      if (shipImg.orientation === "horizontal") {
+        shipImg.orientation = "vertical";
+        shipImg.style.transform = "rotate(90deg)";
+      } else if (shipImg.orientation === "vertical") {
+        shipImg.orientation = "horizontal";
+        shipImg.style.transform = "rotate(0deg)";
+      }
     });
 
-    shipImg.addEventListener("dragend", () => {
-        shipImg.style.width = ""; // Reset width after dragging
-      });
+    shipImg.addEventListener("dragstart", (e) => {
+      currentShipLength = parseInt(shipImg.dataset.length, 10); // Set global variable
+      currentOrientation = shipImg.orientation; // Set global variable
+      e.dataTransfer.setData("ship-type", type); // Retain this for ship type
+
+      console.log("Dragstart - Ship Length:", currentShipLength, "Orientation:", currentOrientation);
+    });
 
     dragDropShipsContainer.appendChild(shipImg);
-    
   });
 }

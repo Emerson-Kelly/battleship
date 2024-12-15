@@ -46,7 +46,7 @@ html, body, canvas {
   justify-content: center;
 }
 
-.cell.hover {
+.hover {
   background-color: rgba(0, 128, 255, 0.3);
   --ship-length: 1; /* Default ship length (in case it's not set dynamically) */
   width: calc(100% * var(--ship-length)); /* Dynamically change width based on ship length */
