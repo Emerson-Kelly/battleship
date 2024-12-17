@@ -59,6 +59,7 @@ html, body, canvas {
 
 .drag-drop-ships-container img:active {
   cursor: grabbing;
+
 }
 
 

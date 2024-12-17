@@ -149,14 +149,30 @@ function shipPlacementComponent() {
         shipImg.style.transform = "rotate(0deg)";
       }
     });
-
     shipImg.addEventListener("dragstart", (e) => {
-      currentShipLength = parseInt(shipImg.dataset.length, 10); // Set global variable
-      currentOrientation = shipImg.orientation; // Set global variable
-      e.dataTransfer.setData("ship-type", type); // Retain this for ship type
-
-      console.log("Dragstart - Ship Length:", currentShipLength, "Orientation:", currentOrientation);
-    });
+        currentShipLength = parseInt(shipImg.dataset.length, 10); // Set global variable
+        currentOrientation = shipImg.orientation; // Set global variable
+        e.dataTransfer.setData("ship-type", type); // Retain this for ship type
+      
+        // Adjust drag preview based on orientation
+        const rotation = currentOrientation === "vertical" ? "rotate(90deg)" : "rotate(0deg)";
+        shipImg.style.transform = rotation;
+      
+        // Use the original ship image as the drag preview
+        e.dataTransfer.setDragImage(
+          shipImg,
+          currentOrientation === "horizontal" ? 30 * currentShipLength : 30,
+          currentOrientation === "horizontal" ? 30 : 30 * currentShipLength
+        );
+      
+        console.log(
+          "Dragstart - Ship Length:",
+          currentShipLength,
+          "Orientation:",
+          currentOrientation
+        );
+      });
+      
 
     dragDropShipsContainer.appendChild(shipImg);
   });
