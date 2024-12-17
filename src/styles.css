@@ -19,7 +19,7 @@ html, body, canvas {
 }
 
 .player-two {
-  height: 577px;
+  height: 583px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -54,7 +54,7 @@ html, body, canvas {
 
 .drag-drop-ships-container img {
   cursor: grab;
-  margin: 5px;
+  /*margin: 5px;*/
 }
 
 .drag-drop-ships-container img:active {
@@ -125,6 +125,8 @@ img, .ship-container.vertical {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  margin: 0 0 1rem 0;
   /*gap: 1rem;*/
 }
 
@@ -146,6 +148,8 @@ img, .ship-container.vertical {
 .submarine {
   /*width: 144px;*/
   width: 5rem;
+  height: 5rem;
+  margin: -16px 0 -32px 0;
 }
 
 .patrol-boat {
