@@ -19,7 +19,7 @@ html, body, canvas {
 }
 
 .player-two {
-  height: 583px;
+  height: 603px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -50,6 +50,16 @@ html, body, canvas {
   --ship-length: 1; /* Default ship length (in case it's not set dynamically) */
   width: calc(100% * var(--ship-length)); /* Dynamically change width based on ship length */
   transition: background-color 0.3s ease; /* Optional smooth transition */
+}
+
+.drag-drop-ships-container {
+  max-width: 491px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
 }
 
 .drag-drop-ships-container img {
@@ -120,42 +130,36 @@ img, .ship-container.vertical {
   opacity: 0.2;
 }
 
-.drag-drop-ships-container {
-  max-width: 491px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 1rem 0;
-  /*gap: 1rem;*/
-}
-
 .carrier {
   /*width: 244px;*/
   width: 5rem;
+  margin: -16px 0 -20px 0;
 }
 
 .battleship {
  /*width: 192px;*/
  width: 5rem;
+ margin: -16px 0 -16px 0;
 }
 
 .destroyer {
   /*width: 146px;*/
   width: 5rem;
+  margin: -16px 0 -28px 0;
+  transform: scaleX(-1);
 }
 
 .submarine {
   /*width: 144px;*/
   width: 5rem;
   height: 5rem;
-  margin: -16px 0 -32px 0;
+  margin: -16px 0 -40px 0;
 }
 
 .patrol-boat {
   /*width: 97px;*/
   width: 5rem;
+  margin: -16px 0 -20px 0;
 }
 
 @media only screen and (max-width: 600px) {

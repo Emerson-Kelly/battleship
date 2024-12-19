@@ -6,6 +6,12 @@ import destroyerIcon from "./assets/ships/destroyerIcon.svg";
 import submarineIcon from "./assets/ships/submarineIcon.svg";
 import patrolIcon from "./assets/ships/patrolIcon.svg";
 
+import carrierVerticalIcon from "./assets/ships/carrierVerticalIcon.svg";
+import battleshipVerticalIcon from "./assets/ships/battleshipVerticalIcon.svg";
+import destroyerVerticalIcon from "./assets/ships/destroyerVerticalIcon.svg";
+import submarineVerticalIcon from "./assets/ships/submarineVerticalIcon.svg";
+import patrolVerticalIcon from "./assets/ships/patrolVerticalIcon.svg";
+
 // Global variables to track ship data during drag-and-drop
 let currentShipLength = 0;
 let currentOrientation = "horizontal";
@@ -118,62 +124,85 @@ function isValidPlacement(gameBoard, shipLength, startPosition, orientation) {
 
 // Function to render draggable ships
 function shipPlacementComponent() {
-  const playerOneGameBoard = document.querySelector(".player-one");
-  const dragDropShipsContainer = document.createElement("div");
-  dragDropShipsContainer.classList.add("drag-drop-ships-container");
-  playerOneGameBoard.prepend(dragDropShipsContainer);
-
-  const ships = [
-    { src: carrierIcon, alt: "Carrier", type: "carrier", length: 5, orientation: "horizontal" },
-    { src: battleshipIcon, alt: "Battleship", type: "battleship", length: 4, orientation: "horizontal" },
-    { src: destroyerIcon, alt: "Destroyer", type: "destroyer", length: 3, orientation: "horizontal" },
-    { src: submarineIcon, alt: "Submarine", type: "submarine", length: 3, orientation: "horizontal" },
-    { src: patrolIcon, alt: "Patrol", type: "patrol-boat", length: 2, orientation: "horizontal" },
-  ];
-
-  ships.forEach(({ src, alt, type, length, orientation }) => {
-    const shipImg = document.createElement("img");
-    shipImg.src = src;
-    shipImg.alt = alt;
-    shipImg.orientation = orientation;
-    shipImg.classList.add(type);
-    shipImg.setAttribute("draggable", true);
-    shipImg.dataset.length = length;
-
-    shipImg.addEventListener("click", (e) => {
-      if (shipImg.orientation === "horizontal") {
-        shipImg.orientation = "vertical";
-        shipImg.style.transform = "rotate(90deg)";
-      } else if (shipImg.orientation === "vertical") {
-        shipImg.orientation = "horizontal";
-        shipImg.style.transform = "rotate(0deg)";
-      }
-    });
-    shipImg.addEventListener("dragstart", (e) => {
-        currentShipLength = parseInt(shipImg.dataset.length, 10); // Set global variable
-        currentOrientation = shipImg.orientation; // Set global variable
-        e.dataTransfer.setData("ship-type", type); // Retain this for ship type
-      
-        // Adjust drag preview based on orientation
-        const rotation = currentOrientation === "vertical" ? "rotate(90deg)" : "rotate(0deg)";
-        shipImg.style.transform = rotation;
-      
-        // Use the original ship image as the drag preview
-        e.dataTransfer.setDragImage(
-          shipImg,
-          currentOrientation === "horizontal" ? 30 * currentShipLength : 30,
-          currentOrientation === "horizontal" ? 30 : 30 * currentShipLength
-        );
-      
-        console.log(
-          "Dragstart - Ship Length:",
-          currentShipLength,
-          "Orientation:",
-          currentOrientation
-        );
+    const playerOneGameBoard = document.querySelector(".player-one");
+    const dragDropShipsContainer = document.createElement("div");
+    dragDropShipsContainer.classList.add("drag-drop-ships-container");
+    playerOneGameBoard.prepend(dragDropShipsContainer);
+  
+    const ships = [
+      {
+        horizontal: carrierIcon,
+        vertical: carrierVerticalIcon,
+        alt: "Carrier",
+        type: "carrier",
+        length: 5,
+      },
+      {
+        horizontal: battleshipIcon,
+        vertical: battleshipVerticalIcon,
+        alt: "Battleship",
+        type: "battleship",
+        length: 4,
+      },
+      {
+        horizontal: destroyerIcon,
+        vertical: destroyerVerticalIcon,
+        alt: "Destroyer",
+        type: "destroyer",
+        length: 3,
+      },
+      {
+        horizontal: submarineIcon,
+        vertical: submarineVerticalIcon,
+        alt: "Submarine",
+        type: "submarine",
+        length: 3,
+      },
+      {
+        horizontal: patrolIcon,
+        vertical: patrolVerticalIcon,
+        alt: "Patrol",
+        type: "patrol-boat",
+        length: 2,
+      },
+    ];
+  
+    ships.forEach(({ horizontal, vertical, alt, type, length }) => {
+      const shipImg = document.createElement("img");
+      shipImg.src = horizontal; // Default to horizontal image
+      shipImg.alt = alt;
+      shipImg.classList.add(type);
+      shipImg.setAttribute("draggable", true);
+      shipImg.dataset.length = length;
+      shipImg.dataset.orientation = "horizontal"; // Default orientation
+  
+      // Add rotation toggle on click
+      shipImg.addEventListener("click", () => {
+        const isHorizontal = shipImg.dataset.orientation === "horizontal";
+        shipImg.dataset.orientation = isHorizontal ? "vertical" : "horizontal";
+        shipImg.src = isHorizontal ? vertical : horizontal; // Update to correct icon
+        if(shipImg.dataset.orientation === "vertical") {
+            shipImg.style.height = "5rem";
+            shipImg.style.width = "48px";
+            shipImg.style.margin = "0 16px 0 16px";
+        }
+        else {
+            shipImg.style.height = "";
+            shipImg.style.width = "";
+            shipImg.style.margin = "";
+        }
       });
-      
-
-    dragDropShipsContainer.appendChild(shipImg);
-  });
-}
+  
+      // Add dragstart behavior
+      shipImg.addEventListener("dragstart", (e) => {
+        currentShipLength = parseInt(shipImg.dataset.length, 10); // Update global variable
+        currentOrientation = shipImg.dataset.orientation; // Update global variable
+        e.dataTransfer.setData("ship-type", type); // Store ship type
+  
+        // Use the image element itself as the drag preview
+        //e.dataTransfer.setDragImage(shipImg, 30, 30);
+      });
+  
+      dragDropShipsContainer.appendChild(shipImg);
+    });
+  }
