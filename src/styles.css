@@ -11,7 +11,7 @@ html, body, canvas {
   z-index: -1;
   top: 0;
   left: 0;
-  background-color: #fff7e7;
+  /*background: linear-gradient(135deg, #003366, #1a4b7a);*/
 }
 
 .player-one {

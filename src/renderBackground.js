@@ -20,17 +20,17 @@ document.body.appendChild(renderer.domElement);
 scene.background = new THREE.Color(0x001a33); // Dark ocean blue background
 
 // Add lighting
-const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
-scene.add(ambientLight);
+//const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
+//scene.add(ambientLight);
 
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(200, 500, 200); // Position the light
-scene.add(directionalLight);
+/const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+//directionalLight.position.set(200, 500, 200); // Position the light
+//scene.add(directionalLight);//
 
 // Create geometry for the ocean grid
 const size = 1100;
-const spacing = 2;
+const spacing = 3;
 const positions = [];
 for (let x = 0; x < size; x += spacing) {
     for (let z = 0; z < size; z += spacing) {
@@ -67,8 +67,8 @@ function mainloop() {
     const positions = grid.attributes.position.array;
 
     // Wave parameters
-    const waveFrequency = 10; // Controls wave density
-    const waveSpeed = 10; // Controls wave speed
+    const waveFrequency = 3; // Controls wave density
+    const waveSpeed = 3; // Controls wave speed
 
     for (let i = 0; i < positions.length; i += 3) {
         // Calculate base wave height with noise
@@ -91,9 +91,10 @@ function mainloop() {
 
         // Optional: Create a more realistic shading effect based on light direction
         const normal = new THREE.Vector3(0, 1, 0); // Simplified normal vector pointing up
-        const lightDirection = new THREE.Vector3().subVectors(directionalLight.position, new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])).normalize();
-        const dotProduct = Math.max(normal.dot(lightDirection), 0); // Simple Lambertian shading
-        gMaterial.opacity = Math.max(0.3, dotProduct); // Decrease opacity based on light angle
+        //const lightDirection = new THREE.Vector3().subVectors(directionalLight.position, new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])).normalize();
+        //const dotProduct = Math.max(normal.dot(lightDirection), 0); // Simple Lambertian shading
+        //gMaterial.opacity = Math.max(0.3, dotProduct); // Decrease opacity based on light angle
+        
     }
     grid.attributes.position.needsUpdate = true;
 }
