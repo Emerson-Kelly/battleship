@@ -57,6 +57,7 @@ export default function playerBoardPlacement(gameBoard) {
     const targetCell = e.target.closest(".cell");
     const draggedShipType = e.dataTransfer.getData("ship-type");
     const draggedShipElement = document.querySelector(`.${draggedShipType}`); // Get the dragged ship element
+    const shipPlacementAlert = document.getElementById("placement-alert");
 
     if (targetCell && draggedShipType) {
       const row = parseInt(targetCell.dataset.x, 10);
@@ -71,9 +72,15 @@ export default function playerBoardPlacement(gameBoard) {
         if (draggedShipElement) {
           draggedShipElement.style.opacity = "0.5";
           draggedShipElement.style.pointerEvents = "none";
+          shipPlacementAlert.innerHTML = ``;
         }
       } else {
-        alert("Invalid placement!");
+        //alert("Invalid placement!");
+        shipPlacementAlert.innerHTML = `
+                    <div role="alert" class="alert alert-error">
+            <span>Invalid placement, please place your ${draggedShipElement.alt} in bounds!</span>
+            </div>
+        `;
       }
     }
   });
