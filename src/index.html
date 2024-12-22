@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="night">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r136/three.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js" defer></script>
     <title>Battleship</title>
 </head>
+
 <body>
-   <div class="flex justify-center items-center h-screen gap-48 gameboard-containers">
-    <div class="flex-col justify-center items-center text-center player-one">
-    <h1 class="text-lg">Player Board</h3>
-    <div id="player-game-board" class="board"></div>
+    <dialog id="my_modal_4" class="modal">
+        <form method="dialog" class="modal-box">
+            <h3 class="font-bold text-lg">Audio Settings</h3>
+            <p class="py-4">Would you like to enable audio?</p>
+            <div class="modal-action">
+                <button id="audio-deny" class="btn">Deny</button>
+                <button id="audio-allow" class="btn">Allow</button>
+            </div>
+        </form>
+    </dialog>
+    <div class="h-screen flex justify-center">
+    <ul class="menu bg-base-200 lg:menu-horizontal rounded-box fixed top-0">
+        <li id="sound-button">
+            <a>
+                 <img src="./assets/icons/volume-2.svg" alt="Sound Icon" class="h-5 w-5" id="sound-icon"/>
+            </a>
+        </li>
+        <audio id="soundTrackMain" src="assets/audio/main-sound-track.mp3" loop></audio>
+        <li>
+            <a>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                stroke="currentColor"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/></svg>
+                New Game
+            </a>
+        </li>
+        <li>
+            <a>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                About
+            </a>
+        </li>
+    </ul>
+    <div class="flex justify-center items-center gap-48 gameboard-containers">
+        <div class="flex-col justify-center items-center text-center player-one">
+            <h1 class="text-lg">Player Board</h3>
+                <div id="player-game-board" class="board"></div>
+        </div>
+        <div class="flex-col justify-center items-center text-center player-two">
+            <h1 class="text-lg">AI Board</h1>
+            <div id="opponent-game-board" class="board"></div>
+        </div>
+    </div>
 </div>
-<div class="flex-col justify-center items-center text-center player-two">
-    <h1 class="text-lg">AI Board</h1>
-    <div id="opponent-game-board" class="board"></div>
-</div>
-</div>
+
 </body>
+
 </html>

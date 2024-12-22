@@ -162,6 +162,10 @@ img, .ship-container.vertical {
   margin: -16px 0 -20px 0;
 }
 
+#sound-icon {
+  filter: invert(.8);
+}
+
 @media only screen and (max-width: 600px) {
   .gameboard-containers {
     flex-direction: column;
