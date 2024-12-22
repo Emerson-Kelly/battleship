@@ -118,11 +118,11 @@ img, .ship-container.vertical {
 }
 
 .hit {
-  background-color: red;
+  background-image: url('./assets/icons/hit.svg');
 }
 
 .miss {
-  background-color: #d3d3d3;
+  background-image: url('./assets/icons/miss.svg');
 }
 
 .sunk {
