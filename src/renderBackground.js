@@ -1,4 +1,3 @@
-/*
 import * as THREE from 'three';
 import { createNoise2D } from 'simplex-noise';
 
@@ -16,21 +15,12 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Set background color to dark ocean blue
-scene.background = new THREE.Color(0x001a33); // Dark ocean blue background
-
-// Add lighting
-//const ambientLight = new THREE.AmbientLight(0x888888, 0.8); // Dim ambient light for atmospheric feel
-//scene.add(ambientLight);
-
-
-/const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-//directionalLight.position.set(200, 500, 200); // Position the light
-//scene.add(directionalLight);//
+// Set background color to #10172a (Ocean background color)
+scene.background = new THREE.Color(0x10172a); // Update to the new dark ocean color
 
 // Create geometry for the ocean grid
 const size = 1100;
-const spacing = 3;
+const spacing = 7;
 const positions = [];
 for (let x = 0; x < size; x += spacing) {
     for (let z = 0; z < size; z += spacing) {
@@ -43,7 +33,7 @@ grid.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
 
 // Create material for the grid particles
 const gMaterial = new THREE.PointsMaterial({
-    color: 0x003366, // Dark ocean blue
+    color: 0x003366, // Dark ocean blue color for particles
     size: 3, // Size of each grid point
     transparent: true,
     opacity: 0.8, // Slightly higher opacity for a less transparent effect
@@ -69,14 +59,15 @@ function mainloop() {
     // Wave parameters
     const waveFrequency = 3; // Controls wave density
     const waveSpeed = 3; // Controls wave speed
+    const waveDirection = new THREE.Vector2(1, 0); // Waves move in the X direction
 
     for (let i = 0; i < positions.length; i += 3) {
         // Calculate base wave height with noise
         let waveHeight = noise(positions[i] + time / 20, positions[i + 2] + time / 20);
-        
-        // Add more complex wave motion using sin for wave crests and troughs
-        const complexWave = Math.sin(positions[i] * waveFrequency + time * waveSpeed) * Math.cos(positions[i + 2] * waveFrequency + time * waveSpeed);
-        waveHeight += complexWave * 5; // Scale the complexity of the waves
+
+        // Add direction to the wave movement
+        const directionWave = Math.sin(positions[i] * waveFrequency + time * waveSpeed * waveDirection.x) * Math.cos(positions[i + 2] * waveFrequency + time * waveSpeed * waveDirection.y);
+        waveHeight += directionWave * 5; // Scale the wave motion
         
         // Simulate foam on top of waves
         const waveCapEffect = Math.sin(positions[i] * 0.1 + time / 10) * 2;
@@ -84,17 +75,10 @@ function mainloop() {
 
         // Adjust color for foam (lighter near the crest)
         if (positions[i + 1] > 30) {
-            gMaterial.color.set(0x66ccff); // Lighter foam color
+            gMaterial.color.set(0x10172a); // Lighter foam color
         } else {
             gMaterial.color.set(0x003366); // Dark ocean blue color
         }
-
-        // Optional: Create a more realistic shading effect based on light direction
-        const normal = new THREE.Vector3(0, 1, 0); // Simplified normal vector pointing up
-        //const lightDirection = new THREE.Vector3().subVectors(directionalLight.position, new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])).normalize();
-        //const dotProduct = Math.max(normal.dot(lightDirection), 0); // Simple Lambertian shading
-        //gMaterial.opacity = Math.max(0.3, dotProduct); // Decrease opacity based on light angle
-        
     }
     grid.attributes.position.needsUpdate = true;
 }
@@ -115,4 +99,3 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
-*/
