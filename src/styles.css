@@ -166,6 +166,10 @@ img, .ship-container.vertical {
   filter: invert(.8);
 }
 
+#my_modal_5 .modal-box, .rules-modal {
+  max-width: 50rem;
+}
+
 @media only screen and (max-width: 600px) {
   .gameboard-containers {
     flex-direction: column;
