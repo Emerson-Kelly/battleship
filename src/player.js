@@ -77,9 +77,6 @@ export default class Player {
   console.log("Updated hitQueue after refining:", this.hitQueue);
 }
 
-
-
-
 // Refine the hit queue based on the axis of the last two hits (horizontal or vertical)
 refineHitQueueBasedOnAxis(hits) {
   if (hits.length < 2) return; // Not enough hits to determine an axis
@@ -105,10 +102,6 @@ refineHitQueueBasedOnAxis(hits) {
 
   console.log("Refined hitQueue:", this.hitQueue);
 }
-
-
-
-  
 
   // Check if a coordinate is within bounds
   isValidCoord([x, y]) {
