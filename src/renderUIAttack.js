@@ -6,6 +6,7 @@ import GameBoardController from "./gameController";
 import { gameController } from "./index.js";
 import Player from "./player.js";
 import { player, opponent } from "./index.js";
+import displayLoadingAnimation from "./opponentLoadingAnimation.js";
 
 const opponentBoardElement = document.getElementById("opponent-game-board");
 const playerBoardElement = document.getElementById("player-game-board");
@@ -47,11 +48,13 @@ export default function renderUIAttack() {
         return;
       }
       gameController.takeTurn([x, y]); // ADDED TO CALL ATTACK FUNCTION
+      setTimeout(() => {
+        displayLoadingAnimation();
+      }, 4000);
 
       // Delay the computer's turn to simulate "thinking"
       setTimeout(() => {
         computerAttack(playerBoardElement);
-
       }, 6000);
     });
   });

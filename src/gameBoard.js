@@ -1,6 +1,5 @@
 import Ship from "./ship.js";
 import Player from "./player.js";
-
 import shotSoundFile from "./assets/audio/shot-sound.mp3";
 import hitSoundFile from "./assets/audio/hit-sound.mp3";
 import missSoundFile from "./assets/audio/miss-sound.mp3";
