@@ -119,10 +119,12 @@ img, .ship-container.vertical {
 
 .hit {
   background-image: url('./assets/icons/hit.svg');
+  z-index: 2;
 }
 
 .miss {
   background-image: url('./assets/icons/miss.svg');
+  z-index: 2;
 }
 
 .sunk {
