@@ -31,7 +31,8 @@ html, body, canvas {
   grid-template-rows: repeat(10, 48px);
   position: relative;
   gap: 1px;
-  border: 1px solid #0066cc;
+  border: 3px solid #0066cc;
+  border-radius: 12px;
 }
 
 
@@ -109,8 +110,10 @@ img, .ship-container.vertical {
 }
 
 #opponent-game-board .cell:hover {
-  outline: 2px solid red;
-  opacity: 50%;
+  border: 2px solid #facc15;
+  opacity: 80%;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .ship {
