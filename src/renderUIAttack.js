@@ -52,7 +52,7 @@ export default function renderUIAttack() {
       setTimeout(() => {
         computerAttack(playerBoardElement);
 
-      }, 100); // 1-second delay
+      }, 6000);
     });
   });
 
@@ -62,8 +62,6 @@ export default function renderUIAttack() {
 export function computerAttack() {
     //const opponentCells = opponentBoardElement.querySelectorAll(".cell");
 
-   
-    
   if (opponent.previousAttacks.length === 0) {
     // No hits to follow up on, perform random attack
     const randomCoord = opponent.generateRandomAttack();
@@ -104,7 +102,7 @@ export function computerAttack() {
 
   setTimeout(() => {
     renderUIAttack(opponentBoardElement);
-  }, 100);
+  }, 3000);
   
 }
 

@@ -1,12 +1,19 @@
 import Ship from "./ship.js";
 import Player from "./player.js";
 
+import shotSoundFile from "./assets/audio/shot-sound.mp3";
+import hitSoundFile from "./assets/audio/hit-sound.mp3";
+import missSoundFile from "./assets/audio/miss-sound.mp3";
+
 export default class GameBoard {
   constructor() {
     this.grid = Array(10)
       .fill(null)
       .map(() => Array(10).fill("~"));
     this.ships = [];
+    this.shotSound = new Audio(shotSoundFile);
+    this.hitSound = new Audio(hitSoundFile);
+    this.missSound = new Audio(missSoundFile);
   }
 
   placeShip(ship, startCoord, direction) {
@@ -29,6 +36,7 @@ export default class GameBoard {
   }
 
   receiveAttack(coords) {
+    this.shotSound.play().catch((error) => console.error("Error playing hit sound:", error));
     // Ensure coords is an array with two elements
     if (!Array.isArray(coords) || coords.length !== 2) {
       console.error("Invalid attack coordinate:", coords);
@@ -46,7 +54,12 @@ export default class GameBoard {
      
       //console.log(cell.hit(coords));
       this.grid[y][x] = "X"; // Update grid to reflect the hit
-      
+
+        // Play hit sound
+        setTimeout(() => {
+          this.hitSound.play().catch((error) => console.error("Error playing hit sound:", error));
+        }, 1000);
+
       // Check if the ship is sunk
       if (cell.isSunk()) {
         console.log(`${cell.type} has been sunk!`);
@@ -62,11 +75,13 @@ export default class GameBoard {
     else if (cell === "~") {
       // Miss
       this.grid[y][x] = "O";
+      setTimeout(() => {
+        this.missSound.play().catch((error) => console.error("Error playing miss sound:", error));
+      }, 1000);
+   
       return false; // Indicate miss
     } 
  
-  
-
     // If the cell is already marked as "O" or "X", it's been attacked before.
     return null; // Prevent re-attacks
   }
@@ -100,4 +115,5 @@ export default class GameBoard {
     const cell = this.grid[y][x];
     return cell instanceof Ship ? cell : null; // Return the ship instance or null
   }
+  
 }

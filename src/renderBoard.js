@@ -100,6 +100,7 @@ export default function renderGameBoard(gameBoard, boardElement) {
           
       } else if (cell === "X") {
         cellElement.classList.add("hit");
+
       } else if (cell === "O") {
         cellElement.classList.add("miss");
       }
