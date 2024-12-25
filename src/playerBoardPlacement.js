@@ -78,7 +78,7 @@ export default function playerBoardPlacement(gameBoard) {
         //alert("Invalid placement!");
         shipPlacementAlert.innerHTML = `
                     <div role="alert" class="alert alert-error">
-            <span>Invalid placement, please place your ${draggedShipElement.alt} in bounds!</span>
+            <span class="text-sm">Invalid placement, please place your ${draggedShipElement.alt} in bounds!</span>
             </div>
         `;
       }
