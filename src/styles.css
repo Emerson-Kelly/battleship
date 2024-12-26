@@ -15,11 +15,11 @@ html, body, canvas {
 }
 
 .player-one {
-  max-height: 631px;
+  max-height: 607px;
 }
 
 .player-two {
-  height: 603px;
+  height: 607px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -61,6 +61,7 @@ html, body, canvas {
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  margin-bottom: 2rem;
 }
 
 .drag-drop-ships-container img {
