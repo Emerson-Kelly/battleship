@@ -31,7 +31,7 @@ export default function displayLoadingAnimation() {
       loadSpinner.innerHTML = ``; // Clear the spinner
       loadSpinner.style.display = 'none'; // Hide the spinner
       blurGameBoard.classList.remove('[&>*]:blur-[2px]'); // Remove blur effect
-    }, 2000);
+    }, 200);
   }
 
     export function startingBlurAnimation() {

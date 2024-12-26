@@ -7,6 +7,7 @@ import { gameController } from "./index.js";
 import Player from "./player.js";
 import { player, opponent } from "./index.js";
 import displayLoadingAnimation from "./opponentLoadingAnimation.js";
+import displayEndGameAlertBanner from "./gameAlertBanner.js";
 
 const opponentBoardElement = document.getElementById("opponent-game-board");
 const playerBoardElement = document.getElementById("player-game-board");
@@ -44,18 +45,19 @@ export default function renderUIAttack() {
 
       // Check if all opponent ships are sunk
       if (opponentGameBoard.allShipsSunk()) {
-        alert("You win!");
+        displayEndGameAlertBanner("You win!");
+        //alert("You win!");
         return;
       }
       gameController.takeTurn([x, y]); // ADDED TO CALL ATTACK FUNCTION
       setTimeout(() => {
         displayLoadingAnimation();
-      }, 4000);
+      }, 400);
 
       // Delay the computer's turn to simulate "thinking"
       setTimeout(() => {
         computerAttack(playerBoardElement);
-      }, 6000);
+      }, 600);
     });
   });
 
@@ -99,13 +101,14 @@ export function computerAttack() {
 
   // Check if all player's ships are sunk
   if (playerGameBoard.allShipsSunk()) {
-    alert("Computer wins!");
+    displayEndGameAlertBanner("Computer wins!");
+    //alert("Computer wins!");
     return;
   }
 
   setTimeout(() => {
     renderUIAttack(opponentBoardElement);
-  }, 3000);
+  }, 300);
   
 }
 
