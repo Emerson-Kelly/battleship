@@ -20,7 +20,7 @@ scene.background = new THREE.Color(0x10172a); // Update to the new dark ocean co
 
 // Create geometry for the ocean grid
 const size = 1100;
-const spacing = 7;
+const spacing = 10;
 const positions = [];
 for (let x = 0; x < size; x += spacing) {
     for (let z = 0; z < size; z += spacing) {
@@ -37,7 +37,7 @@ const gMaterial = new THREE.PointsMaterial({
     size: 3, // Size of each grid point
     transparent: true,
     opacity: 0.8, // Slightly higher opacity for a less transparent effect
-    depthWrite: false, // Make sure the water is transparent
+    depthWrite: true, // Make sure the water is transparent
 });
 
 // Create the particle system for the grid
@@ -47,7 +47,7 @@ gridSystem.position.x = -size / 2;
 gridSystem.position.z = -size / 2;
 
 // Camera setup (bird's-eye view for Battleship-like perspective)
-camera.position.set(0, 600, 0);
+camera.position.set(0, 700, 0);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // Animation loop for wave motion
