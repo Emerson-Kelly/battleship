@@ -1,5 +1,11 @@
+import GameBoard from "./gameBoard.js";
+import { playerGameBoard } from "./renderBoard.js";
+const blurGameBoard = document.getElementById('opponent-game-board');
+blurGameBoard.classList.add('[&>*]:blur-[4px]');
+blurGameBoard.style.cursor = 'none';
+blurGameBoard.style.pointerEvents = 'none';
+
 export default function displayLoadingAnimation() {
-    const blurGameBoard = document.getElementById('opponent-game-board');
     const loadSpinner = document.getElementById('load-spinner');
   
     // Check if the elements exist in the DOM
@@ -27,4 +33,15 @@ export default function displayLoadingAnimation() {
       blurGameBoard.classList.remove('[&>*]:blur-[2px]'); // Remove blur effect
     }, 2000);
   }
+
+    export function startingBlurAnimation() {
+
+    if (playerGameBoard.ships.length === 4) {
+        blurGameBoard.classList.remove('[&>*]:blur-[4px]');
+        blurGameBoard.style.cursor = 'pointer';
+        blurGameBoard.style.pointerEvents = 'auto';
+    }
+
+  };
+
   

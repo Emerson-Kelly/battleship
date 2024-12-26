@@ -1,5 +1,6 @@
 import Ship from "./ship.js";
 import renderGameBoard from "./renderBoard.js";
+import { startingBlurAnimation } from "./opponentLoadingAnimation.js";
 import carrierIcon from "./assets/ships/carrierIcon.svg";
 import battleshipIcon from "./assets/ships/battleshipIcon.svg";
 import destroyerIcon from "./assets/ships/destroyerIcon.svg";
@@ -53,6 +54,8 @@ export default function playerBoardPlacement(gameBoard) {
   playerGameBoardElement.addEventListener("drop", (e) => {
     e.preventDefault();
     clearHoverHighlights();
+
+    startingBlurAnimation();
 
     const targetCell = e.target.closest(".cell");
     const draggedShipType = e.dataTransfer.getData("ship-type");
