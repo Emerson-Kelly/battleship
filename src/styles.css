@@ -46,6 +46,7 @@ html, body, canvas {
   justify-content: center;
 }
 
+
 .hover {
   background-color: rgba(0, 128, 255, 0.3);
   --ship-length: 1; /* Default ship length (in case it's not set dynamically) */
@@ -115,6 +116,7 @@ img, .ship-container.vertical {
   opacity: 80%;
   border-radius: 8px;
   cursor: pointer;
+  z-index: 3;
 }
 
 .ship {

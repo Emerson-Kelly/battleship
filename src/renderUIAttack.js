@@ -28,21 +28,21 @@ export default function renderUIAttack() {
         cell.classList.remove("cell:hover"); // Remove hover class
       });
     }
-
+   
     // Add click event
     cell.addEventListener("click", () => {
       const x = parseInt(cell.getAttribute("data-x"), 10);
       const y = parseInt(cell.getAttribute("data-y"), 10);
 
       console.log(`Player attacks cell (${x}, ${y}) on opponent's board.`);
-
+ 
       //player.attack(opponent, [x, y]);
       // Simulate an attack
       opponentGameBoard.receiveAttack([x, y]);
     
-      // Re-render both boards after the attack
+      // Re-render the opponents board after the attack
       renderGameBoard(opponentGameBoard, opponentBoardElement);
-
+      
       // Check if all opponent ships are sunk
       if (opponentGameBoard.allShipsSunk()) {
         displayEndGameAlertBanner("You win!");
