@@ -53,7 +53,7 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 // Animation loop for wave motion
 let time = 0;
 function mainloop() {
-    time += 1;
+    time += 0.03;
     const positions = grid.attributes.position.array;
 
     // Wave parameters
