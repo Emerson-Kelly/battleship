@@ -42,7 +42,6 @@ export default function renderUIAttack() {
     
       // Re-render the opponents board after the attack
       renderGameBoard(opponentGameBoard, opponentBoardElement);
-      
       // Check if all opponent ships are sunk
       if (opponentGameBoard.allShipsSunk()) {
         displayEndGameAlertBanner("You win!");
@@ -65,52 +64,64 @@ export default function renderUIAttack() {
 }
 
 export function computerAttack() {
-    //const opponentCells = opponentBoardElement.querySelectorAll(".cell");
-
-  if (opponent.previousAttacks.length === 0) {
-    // No hits to follow up on, perform random attack
-    const randomCoord = opponent.generateRandomAttack();
-    //playerGameBoard.receiveAttack(randomCoord);
-
-    console.log(
-      `Computer attacks cell (${randomCoord[0]}, ${randomCoord[1]}) on player's board.`
-    );
-
-    if (playerGameBoard.receiveAttack(randomCoord)) {
-    opponent.enqueueAdjacentCells(randomCoord); // Add to hitQueue on successful hit
-    //opponent.attack(player, randomCoord);
-
-    }
-  } else {
-    // Prioritize attacking adjacent cells
-    const smartCoord = opponent.generateSmartAttack();
-    console.log(
-      `Computer attacks cell (${smartCoord[0]}, ${smartCoord[1]}) on player's board.`
-    );
-
-    //playerGameBoard.receiveAttack(smartCoord);
-
-    if (playerGameBoard.receiveAttack(smartCoord)) {
-      opponent.enqueueAdjacentCells(smartCoord); // Add to hitQueue on successful hit
-     //opponent.attack(player, smartCoord);
-    }
-  }
-
-  // Re-render the player's board
-  renderGameBoard(playerGameBoard, playerBoardElement);
-
-  // Check if all player's ships are sunk
-  if (playerGameBoard.allShipsSunk()) {
-    displayEndGameAlertBanner("Computer wins!");
-    //alert("Computer wins!");
-    return;
-  }
-
-  setTimeout(() => {
-    renderUIAttack(opponentBoardElement);
-  }, 300);
+    let randomCoord;
   
-}
+    // If there are previous attacks (hit queue exists)
+    if (opponent.previousHits.length > 0) {
+      const smartCoord = opponent.generateSmartAttack();
+      console.log(
+        `Computer attacks cell (${smartCoord[0]}, ${smartCoord[1]}) on player's board.`
+      );
+  
+      // Perform the attack on the player's game board and capture the result
+      const attackResult = playerGameBoard.receiveAttack(smartCoord);
+  
+      if (attackResult) {
+        opponent.enqueueAdjacentCells(smartCoord); // Add adjacent cells to hit queue
+      }
+  
+      // Check if the ship has been sunk after the attack
+      if (attackResult === "SUNK") {
+        console.log(`Ship at ${smartCoord} has been sunk!`);
+  
+        // After sinking the ship, switch to random attack
+        opponent.hitQueue = []; // Clear the hit queue to start generating random attacks
+        randomCoord = opponent.generateRandomAttack(); // Generate a random attack
+  
+        console.log(
+          `Computer is now switching to random attack. New random attack: ${randomCoord}`
+        );
+      }
+    } else {
+      // No hits to follow up on, perform random attack
+      randomCoord = opponent.generateRandomAttack();
+      console.log(
+        `Computer attacks cell (${randomCoord[0]}, ${randomCoord[1]}) on player's board.`
+      );
+  
+      // Perform the random attack on the player's game board
+      const attackResult = playerGameBoard.receiveAttack(randomCoord);
+  
+      if (attackResult) {
+        opponent.enqueueAdjacentCells(randomCoord); // Add to hitQueue if successful hit
+      }
+    }
+  
+    // Re-render the player's board after the computer's attack
+    renderGameBoard(playerGameBoard, playerBoardElement);
+  
+    // Check if all the player's ships are sunk
+    if (playerGameBoard.allShipsSunk()) {
+      displayEndGameAlertBanner("Computer wins!");
+      return;
+    }
+  
+    // Re-enable player interaction after the computer attack
+    setTimeout(() => {
+      renderUIAttack(opponentBoardElement);
+    }, 300);
+  }
+  
 
 // Call the function to initialize hover and click effects
 //renderUIAttack();

@@ -3,6 +3,7 @@ import Player from "./player.js";
 import shotSoundFile from "./assets/audio/shot-sound.mp3";
 import hitSoundFile from "./assets/audio/hit-sound.mp3";
 import missSoundFile from "./assets/audio/miss-sound.mp3";
+import { opponent, player } from "./index.js";
 
 export default class GameBoard {
   constructor() {
@@ -67,6 +68,8 @@ export default class GameBoard {
         cell.getCoordinates().forEach(([coordX, coordY]) => {
           this.grid[coordX][coordY] = "SUNK";
         });
+
+        return "SUNK";
       }
   
       return true; // Indicate hit
@@ -82,8 +85,20 @@ export default class GameBoard {
     } 
  
     // If the cell is already marked as "O" or "X", it's been attacked before.
-    return null; // Prevent re-attacks
+    return "~"; // Prevent re-attacks
   }
+
+  isShipSunk(ship) {
+    // Ensure the ship parameter is a valid instance of Ship
+    if (!(ship instanceof Ship)) {
+      console.error("Invalid ship instance provided to isShipSunk method.");
+      return false;
+    }
+
+    // Check if all coordinates of the ship have been hit
+    return ship.getCoordinates().every(([x, y]) => this.grid[x][y] === "X" || this.grid[x][y] === "SUNK");
+  }
+
 
   allShipsSunk() {
     return this.ships.every((ship) => ship.isSunk());
@@ -112,7 +127,7 @@ export default class GameBoard {
 
   getShipAt([y, x]) {
     const cell = this.grid[y][x];
-    return cell instanceof Ship ? cell : null; // Return the ship instance or null
+    return cell instanceof Ship ? cell : null;
   }
   
 }

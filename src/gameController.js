@@ -16,6 +16,7 @@ export default class GameBoardController {
 
   
     this.currentPlayer = this.player;
+
     renderUIAttack();
 
   }

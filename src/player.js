@@ -1,6 +1,7 @@
 import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
 import { opponent } from "./index.js";
+
 //import { opponent } from "./index.js";
 
 
@@ -24,6 +25,7 @@ export default class Player {
   
     // Record attack attempt
     this.previousAttacks.push(coord);
+
   
     console.log(`HitQueue: ${JSON.stringify(this.hitQueue)}`);
   
@@ -99,6 +101,8 @@ refineHitQueueBasedOnAxis(hits) {
       ([x, y]) => x === firstHit[0] && this.isValidCoord([x, y]) && !this.isPreviouslyAttacked([x, y])
     );
   }
+  
+
 
   console.log("Refined hitQueue:", this.hitQueue);
 }
@@ -116,16 +120,16 @@ refineHitQueueBasedOnAxis(hits) {
   }
 
   generateSmartAttack() {
-    // If there are cells in the hit queue, prioritize them
+    
     if (this.hitQueue.length > 0) {
       const nextTarget = this.hitQueue.shift();
       this.previousAttacks.push(nextTarget);
       return nextTarget;
     }
+  
     // Otherwise, fallback to a random attack
     return this.generateRandomAttack();
   }
-  
 
   generateRandomAttack() {
     // Prioritize coordinates from hitQueue
