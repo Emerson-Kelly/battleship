@@ -18,14 +18,15 @@ playerBoardPlacement(playerGameBoard);
 computerBoardPlacement(opponentGameBoard);
 
 // Function to render the player's or opponent's game board
+// Function to render the player's or opponent's game board
 export default function renderGameBoard(gameBoard, boardElement) {
   boardElement.innerHTML = "";
 
-  gameBoard.ships.forEach(ship => {
+  gameBoard.ships.forEach((ship) => {
     const [startX, startY] = ship.getCoordinates()[0];
     const shipContainer = document.createElement("div");
-    const shipImage = document.createElement("img");
-    
+    const shipImages = document.createElement("img");
+
     shipContainer.classList.add("ship-container", ship.getOrientation());
     shipContainer.style.setProperty("--ship-length", ship.length);
 
@@ -42,11 +43,27 @@ export default function renderGameBoard(gameBoard, boardElement) {
       shipContainer.style.gridColumnStart = startY + 2;
     }
 
-    shipImage.src = getShipIcon(ship.type);
-    shipImage.alt = `${ship.type}`;
-    shipImage.classList.add("ship-svg");
-  
-    shipContainer.appendChild(shipImage);
+    shipImages.src = getShipIcon(ship.type);
+    shipImages.alt = `${ship.type}`;
+    shipImages.classList.add("ship-svg");
+
+    // Initially hide opponent ships
+    if (gameBoard === opponentGameBoard) {
+      shipContainer.style.opacity = 0;
+    }
+
+    // Check if the ship is sunk by inspecting its coordinates
+    const coordinates = ship.getCoordinates();
+    const isSunk = coordinates.every(
+      ([x, y]) => gameBoard.grid[x][y] === "SUNK" || gameBoard.grid[x][y] === "X"
+    );
+
+    // Show the ship if it's sunk (only for opponent's ships)
+    if (gameBoard === opponentGameBoard && isSunk) {
+      shipContainer.style.opacity = 1;
+    }
+
+    shipContainer.appendChild(shipImages);
     boardElement.appendChild(shipContainer);
   });
 
@@ -57,18 +74,18 @@ export default function renderGameBoard(gameBoard, boardElement) {
       cellElement.setAttribute("data-x", rowIndex);
       cellElement.setAttribute("data-y", colIndex);
 
-      // Add hit or miss indicators
-      if (cell === "SUNK" || cell === "X") {
+      if (cell === "SUNK") {
+        cellElement.classList.add("hit");
+      } else if (cell === "X") {
         cellElement.classList.add("hit");
       } else if (cell === "O") {
         cellElement.classList.add("miss");
       }
-    
+
       boardElement.appendChild(cellElement);
     });
   });
 }
-
 
 function getShipIcon(type) {
   switch (type) {
@@ -93,3 +110,6 @@ renderGameBoard(
   opponentGameBoard,
   document.getElementById("opponent-game-board")
 );
+
+
+
