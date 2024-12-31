@@ -51,12 +51,12 @@ export default function renderUIAttack() {
       gameController.takeTurn([x, y]); // ADDED TO CALL ATTACK FUNCTION
       setTimeout(() => {
         displayLoadingAnimation();
-      }, 400);
+      }, 4000);
 
       // Delay the computer's turn to simulate "thinking"
       setTimeout(() => {
         computerAttack(playerBoardElement);
-      }, 600);
+      }, 6000);
     });
   });
 
@@ -119,7 +119,7 @@ export function computerAttack() {
     // Re-enable player interaction after the computer attack
     setTimeout(() => {
       renderUIAttack(opponentBoardElement);
-    }, 300);
+    }, 3000);
   }
   
 
