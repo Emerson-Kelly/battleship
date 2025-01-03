@@ -5,8 +5,8 @@ rulesModalButton.addEventListener('click', rulesModalFunctionality);
 
 function rulesModalFunctionality() {
     rulesModal.innerHTML = `
-    <dialog id="my_modal_5" class="modal">
-    <form method="dialog" class="modal-box rules-modal">
+    <dialog id="my_modal_6" class="modal">
+    <form method="dialog" class="modal-box about-modal">
         <h1 id="battleship-rules" class="font-bold text-xl">Battleship Game Rules</h1>
         <br>
 
@@ -51,7 +51,7 @@ function rulesModalFunctionality() {
         </ul>
 
         <div class="modal-action">
-            <button id="close-rules" class="btn">Close</button>
+            <button id="close-about" class="btn">Close</button>
         </div>
     </form>
 </dialog>
@@ -60,10 +60,10 @@ function rulesModalFunctionality() {
 
    
     // Access the modal after it has been added to the DOM
-    const modalDialog = document.getElementById('my_modal_5');
+    const modalDialog = document.getElementById('my_modal_6');
     if (modalDialog) {
         modalDialog.showModal();
-        document.getElementById('close-rules').addEventListener('click', () => {
+        document.getElementById('close-about').addEventListener('click', () => {
             modalDialog.close();
         });
     } else {
