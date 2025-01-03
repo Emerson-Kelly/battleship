@@ -10,7 +10,17 @@ module.exports = {
    ship: "./src/ship.js",
    gameBoard: "./src/gameBoard.js",
    player: "./src/player.js",
-   gameController: "./src/gameController"
+   gameController: "./src/gameController.js",
+   renderBoard: "./src/renderBoard.js",
+   renderBackground: "./src/renderBackground.js",
+   renderUIAttack: "./src/renderUIAttack.js",
+   computerBoardPlacement: "./src/computerBoardPlacement.js",
+   playerBoardPlacement: "./src/playerBoardPlacement.js",
+   soundTrack: "./src/soundtrack.js",
+   restartGame: "./src/restartGame.js",
+   rulesModal: "./src/rulesModal.js",
+   opponentLoadingAnimation: "./src/opponentLoadingAnimation.js",
+   gameAlertBanner: "./src/gameAlertBanner.js"
   },
   output: {
     filename: '[name].bundle.js',
@@ -45,9 +55,16 @@ module.exports = {
         loader: "html-loader",
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|mp3)$/i,
         type: "asset/resource",
-      }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+            loader: 'babel-loader',
+        },
+    },
     ],
   },
  
