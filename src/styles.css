@@ -1,4 +1,188 @@
-/* styles.css */
-body {
-    background-color: rgb(241, 241, 255);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, canvas {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.player-one {
+  max-height: 607px;
+}
+
+.player-two {
+  height: 607px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 48px);
+  grid-template-rows: repeat(10, 48px);
+  position: relative;
+  gap: 1px;
+  border: 3px solid #0066cc;
+  border-radius: 12px;
+}
+
+
+.cell {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  outline: 0.5px dashed #0066cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.hover {
+  background-color: rgba(0, 128, 255, 0.3);
+  --ship-length: 1;
+  width: calc(100% * var(--ship-length));
+  transition: background-color 0.3s ease;
+}
+
+.drag-drop-ships-container {
+  max-width: 491px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  margin-bottom: 2rem;
+}
+
+.drag-drop-ships-container img {
+  cursor: grab;
+}
+
+.drag-drop-ships-container img:active {
+  cursor: grabbing;
+
+}
+
+
+img, .ship-container.horizontal {
+  height: 3rem;
+}
+
+img, .ship-container.vertical {
+  height: 3rem;
+}
+
+.ship-container {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ship-container.horizontal {
+  grid-column: span var(--ship-length);
+  grid-row: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ship-container.vertical {
+  grid-row: span var(--ship-length);
+  grid-column: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.ship-svg {
+  width: 100%;
+  height: 100%;
+}
+
+#opponent-game-board .cell:hover {
+  border: 2px solid #facc15;
+  opacity: 80%;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.ship {
+  background-color: #2f4f4f;
+}
+
+.hit {
+  background-image: url('./assets/icons/hit.svg');
+  z-index: 2;
+}
+
+.miss {
+  background-image: url('./assets/icons/miss.svg');
+  z-index: 2;
+}
+
+.sunk {
+  background-color: #4f80ea;
+  opacity: 0.2;
+}
+
+.carrier {
+  width: 5rem;
+  margin: -16px 0 -20px 0;
+}
+
+.battleship {
+ width: 5rem;
+ margin: -16px 0 -16px 0;
+}
+
+.destroyer {
+  width: 5rem;
+  margin: -16px 0 -28px 0;
+  transform: scaleX(-1);
+}
+
+.submarine {
+  width: 5rem;
+  height: 5rem;
+  margin: -16px 0 -40px 0;
+}
+
+.patrol-boat {
+  width: 5rem;
+  margin: -16px 0 -20px 0;
+}
+
+#sound-icon {
+  filter: invert(.8);
+}
+
+#my_modal_5 .modal-box, .rules-modal {
+  max-width: 50rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .gameboard-containers {
+    flex-direction: column;
+    gap: 2rem;
   }
+
+  .board {
+    grid-template-columns: repeat(10, 36px);
+  }
+
+  .cell {
+    width: 36px;
+    height: 36px;
+  }
+}
