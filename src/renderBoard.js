@@ -1,14 +1,10 @@
-import Ship from "./ship.js";
 import GameBoard from "./gameBoard.js";
-import { opponent } from "./index.js";
 import playerBoardPlacement from "./playerBoardPlacement.js";
-
 import carrierIcon from "./assets/ships/carrierIcon.svg";
 import battleshipIcon from "./assets/ships/battleshipIcon.svg";
 import destroyerIcon from "./assets/ships/destroyerIcon.svg";
 import submarineIcon from "./assets/ships/submarineIcon.svg";
 import patrolIcon from "./assets/ships/patrolIcon.svg";
-
 import computerBoardPlacement from "./computerBoardPlacement.js";
 
 export const opponentGameBoard = new GameBoard();
@@ -17,7 +13,6 @@ export const playerGameBoard = new GameBoard();
 playerBoardPlacement(playerGameBoard);
 computerBoardPlacement(opponentGameBoard);
 
-// Function to render the player's or opponent's game board
 // Function to render the player's or opponent's game board
 export default function renderGameBoard(gameBoard, boardElement) {
   boardElement.innerHTML = "";
@@ -55,7 +50,8 @@ export default function renderGameBoard(gameBoard, boardElement) {
     // Check if the ship is sunk by inspecting its coordinates
     const coordinates = ship.getCoordinates();
     const isSunk = coordinates.every(
-      ([x, y]) => gameBoard.grid[x][y] === "SUNK" || gameBoard.grid[x][y] === "X"
+      ([x, y]) =>
+        gameBoard.grid[x][y] === "SUNK" || gameBoard.grid[x][y] === "X"
     );
 
     // Show the ship if it's sunk (only for opponent's ships)
@@ -110,6 +106,3 @@ renderGameBoard(
   opponentGameBoard,
   document.getElementById("opponent-game-board")
 );
-
-
-

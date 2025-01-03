@@ -1,5 +1,4 @@
 import Ship from "./ship.js";
-import GameBoard from "./gameBoard.js";
 
 // Randomize computer ships at the start of each game
 export default function computerBoardPlacement(gameBoard) {
@@ -129,5 +128,4 @@ export default function computerBoardPlacement(gameBoard) {
       console.error(`Failed to place ${ship.type} after 100 attempts.`);
     }
   });
-
 }

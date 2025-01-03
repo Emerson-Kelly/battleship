@@ -1,10 +1,10 @@
-const rulesModalButton = document.getElementById('rules-button');
-const rulesModal = document.getElementById('rules-modal');
+const rulesModalButton = document.getElementById("rules-button");
+const rulesModal = document.getElementById("rules-modal");
 
-rulesModalButton.addEventListener('click', rulesModalFunctionality);
+rulesModalButton.addEventListener("click", rulesModalFunctionality);
 
 function rulesModalFunctionality() {
-    rulesModal.innerHTML = `
+  rulesModal.innerHTML = `
     <dialog id="my_modal_6" class="modal">
     <form method="dialog" class="modal-box about-modal">
         <h1 id="battleship-rules" class="font-bold text-xl">Battleship Game Rules</h1>
@@ -58,15 +58,14 @@ function rulesModalFunctionality() {
 
     `;
 
-   
-    // Access the modal after it has been added to the DOM
-    const modalDialog = document.getElementById('my_modal_6');
-    if (modalDialog) {
-        modalDialog.showModal();
-        document.getElementById('close-about').addEventListener('click', () => {
-            modalDialog.close();
-        });
-    } else {
-        console.error('Modal dialog not found!');
-    }
+  // Access the modal after it has been added to the DOM
+  const modalDialog = document.getElementById("my_modal_6");
+  if (modalDialog) {
+    modalDialog.showModal();
+    document.getElementById("close-about").addEventListener("click", () => {
+      modalDialog.close();
+    });
+  } else {
+    console.error("Modal dialog not found!");
+  }
 }

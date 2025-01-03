@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let isMuted = false;
 
   // Helper function to toggle mute
-function toggleMute(muteState) {
+  function toggleMute(muteState) {
     mainSoundTrack.muted = muteState;
     backgroundOceanAudio.muted = muteState;
-  
+
     // Mute sounds in game boards if they exist
     if (playerGameBoard) {
       playerGameBoard.shotSound.muted = muteState;
@@ -30,11 +30,10 @@ function toggleMute(muteState) {
       opponentGameBoard.hitSound.muted = muteState;
       opponentGameBoard.missSound.muted = muteState;
     }
-  
+
     // Update icon
     soundIcon.src = muteState ? muteIcon : playIcon;
   }
-  
 
   // Check if the browser supports <dialog>
   if (typeof HTMLDialogElement !== "undefined" && audioModal.showModal) {
@@ -57,7 +56,10 @@ function toggleMute(muteState) {
       .play()
       .then(() => console.log("Ocean Audio started playing successfully."))
       .catch((err) =>
-        console.warn("Ocean Audio playback was blocked even after interaction.", err)
+        console.warn(
+          "Ocean Audio playback was blocked even after interaction.",
+          err
+        )
       );
   });
 
@@ -77,16 +79,24 @@ function toggleMute(muteState) {
     if (!isMuted) {
       mainSoundTrack
         .play()
-        .then(() => console.log("Main soundtrack started playing successfully."))
+        .then(() =>
+          console.log("Main soundtrack started playing successfully.")
+        )
         .catch((err) =>
-          console.warn("Main soundtrack was blocked even after interaction.", err)
+          console.warn(
+            "Main soundtrack was blocked even after interaction.",
+            err
+          )
         );
 
       backgroundOceanAudio
         .play()
         .then(() => console.log("Ocean Audio started playing successfully."))
         .catch((err) =>
-          console.warn("Ocean Audio playback was blocked even after interaction.", err)
+          console.warn(
+            "Ocean Audio playback was blocked even after interaction.",
+            err
+          )
         );
     }
   });

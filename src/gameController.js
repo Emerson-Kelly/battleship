@@ -1,9 +1,6 @@
 import Ship from "./ship.js";
-import GameBoard from "./gameBoard.js";
 import Player from "./player.js";
-import { renderGameBoard } from "./renderBoard.js";
 import renderUIAttack from "./renderUIAttack.js";
-import playerBoardPlacement from "./playerBoardPlacement.js";
 
 export default class GameBoardController {
   constructor() {
@@ -13,12 +10,8 @@ export default class GameBoardController {
   }
 
   initializeGame() {
-
-  
     this.currentPlayer = this.player;
-
     renderUIAttack();
-
   }
 
   startGame() {
@@ -27,28 +20,24 @@ export default class GameBoardController {
         ? this.computer.generateRandomAttack()
         : this.getPlayerInput();
       this.takeTurn(coord);
-      //this.switchTurns();
-      
     }
   }
 
   takeTurn(coord) {
-    
     const opponent = this.getOpponent();
-    console.log(`Attacking ${coord} on opponent's grid...`);
-  
+    /*console.log(`Attacking ${coord} on opponent's grid...`);*/
+
     console.log("Opponent's current grid:");
     this.logResult(opponent.gameBoard.grid);
-  
+
     const result = opponent.attack(opponent, coord); // Call the updated attack method
-    console.log('RESULT: ' + result);
-    console.log(result ? `Hit at ${coord}!` : `Miss at ${coord}.`);
-  
-    console.log("Opponent's grid after attack:");
+    /*console.log('RESULT: ' + result);
+    console.log(result ? `Hit at ${coord}!` : `Miss at ${coord}.`);*/
+
+    /*console.log("Opponent's grid after attack:");*/
     this.logResult(opponent.gameBoard.grid);
     this.switchTurns();
   }
-  
 
   checkGameOver() {
     return (
@@ -60,7 +49,6 @@ export default class GameBoardController {
   switchTurns() {
     this.currentPlayer =
       this.currentPlayer === this.player ? this.computer : this.player;
-        //renderUIAttack();
   }
 
   getOpponent() {
@@ -79,6 +67,6 @@ export default class GameBoardController {
       })
     );
 
-    console.table(formattedGrid);
+    //console.table(formattedGrid);
   }
 }

@@ -11,7 +11,6 @@ html, body, canvas {
   z-index: -1;
   top: 0;
   left: 0;
-  /*background: linear-gradient(135deg, #003366, #1a4b7a);*/
 }
 
 .player-one {
@@ -49,9 +48,9 @@ html, body, canvas {
 
 .hover {
   background-color: rgba(0, 128, 255, 0.3);
-  --ship-length: 1; /* Default ship length (in case it's not set dynamically) */
-  width: calc(100% * var(--ship-length)); /* Dynamically change width based on ship length */
-  transition: background-color 0.3s ease; /* Optional smooth transition */
+  --ship-length: 1;
+  width: calc(100% * var(--ship-length));
+  transition: background-color 0.3s ease;
 }
 
 .drag-drop-ships-container {
@@ -67,7 +66,6 @@ html, body, canvas {
 
 .drag-drop-ships-container img {
   cursor: grab;
-  /*margin: 5px;*/
 }
 
 .drag-drop-ships-container img:active {
@@ -139,33 +137,28 @@ img, .ship-container.vertical {
 }
 
 .carrier {
-  /*width: 244px;*/
   width: 5rem;
   margin: -16px 0 -20px 0;
 }
 
 .battleship {
- /*width: 192px;*/
  width: 5rem;
  margin: -16px 0 -16px 0;
 }
 
 .destroyer {
-  /*width: 146px;*/
   width: 5rem;
   margin: -16px 0 -28px 0;
   transform: scaleX(-1);
 }
 
 .submarine {
-  /*width: 144px;*/
   width: 5rem;
   height: 5rem;
   margin: -16px 0 -40px 0;
 }
 
 .patrol-boat {
-  /*width: 97px;*/
   width: 5rem;
   margin: -16px 0 -20px 0;
 }
