@@ -59,7 +59,7 @@ export default class GameBoard {
         this.hitSound
           .play()
           .catch((error) => console.error("Error playing hit sound:", error));
-      }, 1000);
+      }, 800);
 
       // Check if the ship is sunk
       if (cell.isSunk()) {
@@ -81,7 +81,7 @@ export default class GameBoard {
         this.missSound
           .play()
           .catch((error) => console.error("Error playing miss sound:", error));
-      }, 1000);
+      }, 800);
 
       return false; // Indicate miss
     }
