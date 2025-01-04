@@ -1,6 +1,11 @@
 import { restartGame } from "./restartGame";
 
-const gameAlertBanner = document.getElementById("placement-alert");
+const playerOneGameBoard = document.querySelector(".player-one");
+const gameAlertBanner = document.createElement("div");
+gameAlertBanner.id = "placement-alert";
+playerOneGameBoard.prepend(gameAlertBanner);
+
+
 
 gameAlertBanner.innerHTML = `
                     <div role="alert" class="alert alert-info">
