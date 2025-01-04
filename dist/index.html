@@ -23,43 +23,49 @@
     </dialog>
     <div class="h-screen flex justify-center">
         <div id="game-alert"></div>
-    <ul class="menu bg-base-200 lg:menu-horizontal rounded-box fixed top-0">
-        <li id="sound-button">
-            <a>
-                 <img src="9cfe29d9f1bd1fa51c0d.svg" alt="Sound Icon" class="h-5 w-5" id="sound-icon"/>
-            </a>
-        </li>
-        <audio id="soundTrackMain" src="a8b52b751285d6cc4e14.mp3" loop></audio>
-        <audio id="ocean-audio" src="61bb35b8030eedefc74b.mp3" loop></audio>
-        <li id="restart-button">
-            <a>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                stroke="currentColor"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/></svg>
-                Restart
-            </a>
-        </li>
-        <li id="rules-button">
-            <a href="#battleship-rules">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
-                Rules
-            </a>
-        </li>
-    </ul>
-            <div id="rules-modal">
-                <dialog id="my_modal_5" class="modal"></dialog>
-            </div>
-    <div class="flex justify-center items-center gap-48 gameboard-containers">
-        <div class="flex-col justify-center items-center text-center player-one">
-            <div style="position: absolute; top: 5rem; width: 491px;" id="placement-alert"></div>
-                <div id="player-game-board" class="board"></div>
+        <ul class="menu bg-base-200 lg:menu-horizontal rounded-box fixed top-0">
+            <li id="sound-button">
+                <a>
+                    <img src="9cfe29d9f1bd1fa51c0d.svg" alt="Sound Icon" class="h-5 w-5" id="sound-icon" />
+                </a>
+            </li>
+            <audio id="soundTrackMain" src="a8b52b751285d6cc4e14.mp3" loop></audio>
+            <audio id="ocean-audio" src="61bb35b8030eedefc74b.mp3" loop></audio>
+            <li id="restart-button">
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke-width="2"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38" />
+                    </svg>
+                    Restart
+                </a>
+            </li>
+            <li id="rules-button">
+                <a href="#battleship-rules">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                        <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />
+                    </svg>
+                    Rules
+                </a>
+            </li>
+        </ul>
+        <div id="rules-modal">
+            <dialog id="my_modal_6" class="modal"></dialog>
         </div>
-        <div class="flex-col justify-center items-center text-center player-two">
-            <div id="load-spinner" style="display: none;"></div>
-            <div id="opponent-game-board" class="board"></div>
-           
+        <div class="flex justify-center items-center gap-48 gameboard-containers">
+            <div class="flex-col justify-center items-center text-center player-one">
+                <!--<div style="position: absolute; top: 5rem; width: 491px;" id="placement-alert"></div>-->
+                <div id="player-game-board" class="board"></div>
+            </div>
+            <div class="flex-col justify-center items-center text-center player-two">
+                <div id="load-spinner" style="display: none;"></div>
+                <div id="opponent-game-board" class="board"></div>
+
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 
