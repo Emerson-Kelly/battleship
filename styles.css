@@ -2706,15 +2706,17 @@ html, body, canvas {
   z-index: -1;
   top: 0;
   left: 0;
-  /*background: linear-gradient(135deg, #003366, #1a4b7a);*/
 }
 
 .player-one {
-  max-height: 607px;
+  height: 661px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
 }
 
 .player-two {
-  height: 607px;
+  height: 666px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -2722,8 +2724,10 @@ html, body, canvas {
 
 .board {
   display: grid;
-  grid-template-columns: repeat(10, 48px);
-  grid-template-rows: repeat(10, 48px);
+  /*grid-template-columns: repeat(10, 48px);
+  grid-template-rows: repeat(10, 48px);*/
+  grid-template-columns: repeat(10, 1fr); /* Flexible grid columns */
+  grid-template-rows: repeat(10, 1fr);
   position: relative;
   gap: 1px;
   border: 3px solid #0066cc;
@@ -2733,8 +2737,8 @@ html, body, canvas {
 
 .cell {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   outline: 0.5px dashed #0066cc;
   display: flex;
   align-items: center;
@@ -2744,9 +2748,9 @@ html, body, canvas {
 
 .hover {
   background-color: rgba(0, 128, 255, 0.3);
-  --ship-length: 1; /* Default ship length (in case it's not set dynamically) */
-  width: calc(100% * var(--ship-length)); /* Dynamically change width based on ship length */
-  transition: background-color 0.3s ease; /* Optional smooth transition */
+  --ship-length: 1;
+  width: calc(100% * var(--ship-length));
+  transition: background-color 0.3s ease;
 }
 
 .drag-drop-ships-container {
@@ -2757,12 +2761,11 @@ html, body, canvas {
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  margin-bottom: 2rem;
+  margin: .5rem 0 1.5rem 0;
 }
 
 .drag-drop-ships-container img {
   cursor: grab;
-  /*margin: 5px;*/
 }
 
 .drag-drop-ships-container img:active {
@@ -2834,33 +2837,28 @@ img, .ship-container.vertical {
 }
 
 .carrier {
-  /*width: 244px;*/
   width: 5rem;
   margin: -16px 0 -20px 0;
 }
 
 .battleship {
- /*width: 192px;*/
  width: 5rem;
  margin: -16px 0 -16px 0;
 }
 
 .destroyer {
-  /*width: 146px;*/
   width: 5rem;
   margin: -16px 0 -28px 0;
   transform: scaleX(-1);
 }
 
 .submarine {
-  /*width: 144px;*/
   width: 5rem;
   height: 5rem;
   margin: -16px 0 -40px 0;
 }
 
 .patrol-boat {
-  /*width: 97px;*/
   width: 5rem;
   margin: -16px 0 -20px 0;
 }
@@ -2871,6 +2869,11 @@ img, .ship-container.vertical {
 
 #my_modal_5 .modal-box, .rules-modal {
   max-width: 50rem;
+}
+
+.menu {
+  flex-flow: row;
+  flex-wrap: nowrap;
 }
 
 @media only screen and (max-width: 600px) {
@@ -2886,6 +2889,10 @@ img, .ship-container.vertical {
   .cell {
     width: 36px;
     height: 36px;
+  }
+  .gameboard-containers {
+    flex-direction: column;
+    gap: 2rem;
   }
 }
 
@@ -2928,4 +2935,3 @@ img, .ship-container.vertical {
   --tw-blur: blur(4px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
-
