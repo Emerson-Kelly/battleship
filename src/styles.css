@@ -29,12 +29,9 @@ html, body, canvas {
 
 .board {
   display: grid;
-  /*grid-template-columns: repeat(10, 48px);
-  grid-template-rows: repeat(10, 48px);*/
   grid-template-columns: repeat(10, 1fr); /* Flexible grid columns */
   grid-template-rows: repeat(10, 1fr);
   position: relative;
-  gap: 1px;
   border: 3px solid #0066cc;
   border-radius: 12px;
 }
@@ -66,7 +63,7 @@ html, body, canvas {
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  margin: .5rem 0 1.5rem 0;
+  margin: .2rem 0 .4rem 0;
 }
 
 .drag-drop-ships-container img {
@@ -179,6 +176,10 @@ img, .ship-container.vertical {
 .menu {
   flex-flow: row;
   flex-wrap: nowrap;
+}
+
+.alert {
+  padding: .8rem;
 }
 
 @media only screen and (max-width: 600px) {
