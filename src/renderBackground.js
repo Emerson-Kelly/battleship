@@ -38,11 +38,12 @@ grid.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
 
 // Create material for the grid particles
 const gMaterial = new THREE.PointsMaterial({
-  color: 0x003366, // Dark ocean blue color for particles
-  size: 3, // Size of each grid point
-  transparent: true,
-  opacity: 0.8, // Slightly higher opacity for a less transparent effect
-  depthWrite: true, // Make sure the water is transparent
+    color: 0x003366,
+    size: 3,
+    transparent: true,
+    opacity: 0.8,
+    depthTest: true,
+    depthWrite: false,
 });
 
 // Create the particle system for the grid
@@ -84,7 +85,7 @@ function mainloop() {
     waveHeight += directionWave * 5; // Scale the wave motion
 
     // Simulate foam on top of waves
-    const waveCapEffect = Math.sin(positions[i] * 0.1 + time / 10) * 2;
+    const waveCapEffect = Math.sin(positions[i] * 0.1 + time / 10) * 1;
     positions[i + 1] = waveHeight + waveCapEffect;
 
     // Adjust color for foam (lighter near the crest)
