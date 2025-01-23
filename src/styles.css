@@ -13,6 +13,12 @@ html, body, canvas {
   left: 0;
 }
 
+body {
+  opacity: 1;
+  background-image: radial-gradient(#003366 0.75px, #03164400 0.75px);
+  background-size: 15px 15px;
+}
+
 .player-one {
   height: 661px;
   display: flex;

@@ -12,7 +12,6 @@ module.exports = {
    player: "./src/player.js",
    gameController: "./src/gameController.js",
    renderBoard: "./src/renderBoard.js",
-   renderBackground: "./src/renderBackground.js",
    renderUIAttack: "./src/renderUIAttack.js",
    computerBoardPlacement: "./src/computerBoardPlacement.js",
    playerBoardPlacement: "./src/playerBoardPlacement.js",
